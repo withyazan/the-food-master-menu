@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Food Master | المنيو</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0b0b0b;
+      --card: #151515;
+      --card2: #1d1d1d;
+      --text: #ffffff;
+      --muted: #a8a8a8;
+      --accent: #d6a84f;
+      --accent2: #f1c86b;
+      --border: rgba(255,255,255,.09);
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================
+       INTRO
+    ========================== */
+
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      overflow: hidden;
+      background: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: .32;
+      transform: scale(1.08);
+      animation: introZoom 4s ease forwards;
+    }
+
+    .intro-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(0,0,0,.55),
+          rgba(0,0,0,.78));
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 30px;
+      animation: introAppear 1.2s ease forwards;
+    }
+
+    .intro-logo {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,.5);
+      box-shadow: 0 0 50px rgba(214,168,79,.25);
+      margin-bottom: 24px;
+      background: #171717;
+    }
+
+    .intro-title {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .intro-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .intro-line {
+      width: 55px;
+      height: 2px;
+      background: var(--accent);
+      margin: 22px auto;
+      border-radius: 10px;
+    }
+
+    @keyframes introAppear {
+      from {
+        opacity: 0;
+        transform: translateY(25px) scale(.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes introZoom {
+      from {
+        transform: scale(1.08);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    /* =========================
+       MAIN
+    ========================== */
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px 16px 50px;
+    }
+
+    .top-logo {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      display: block;
+      margin: 10px auto 15px;
+      background: #151515;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .brand h1 {
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 25px 0 15px;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+    }
+
+    .section-title span {
+      width: 45px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 20px;
+    }
+
+    /* =========================
+       BRANCHES
+    ========================== */
+
+    .branches {
+      display: grid;
+      gap: 14px;
+    }
+
+    .branch {
+      background: linear-gradient(145deg, #191919, #111111);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: .25s ease;
+    }
+
+    .branch:hover {
+      transform: translateY(-2px);
+      border-color: rgba(214,168,79,.35);
+    }
+
+    .branch-image {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      background: #202020;
+    }
+
+    .branch-body {
+      padding: 16px;
+    }
+
+    .branch-name {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .branch-info {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .branch-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .action {
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: #202020;
+      color: white;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .action.primary {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+
+    /* =========================
+       MENU
+    ========================== */
+
+    .back-button {
+      border: 1px solid var(--border);
+      background: #171717;
+      color: white;
+      padding: 9px 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .menu-header h2 {
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .menu-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+      margin-bottom: 20px;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-button {
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      background: #161616;
+      color: #ddd;
+      padding: 9px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+
+    .category-button.active {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 105px 1fr;
+      gap: 13px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 10px;
+    }
+
+    .item-image {
+      width: 105px;
+      height: 105px;
+      object-fit: cover;
+      border-radius: 13px;
+      background: #222;
+    }
+
+    .item-info {
+      padding: 3px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .item-name {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .item-description {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .item-price {
+      color: var(--accent2);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .loading {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px 10px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px 15px;
+      color: var(--muted);
+    }
+
+    @media (min-width: 650px) {
+      .branches {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- شاشة البداية -->
+  <div id="intro">
+    <div class="intro-bg" id="introBg"></div>
+    <div class="intro-overlay"></div>
+
+    <div class="intro-content">
+      <img id="introLogo" class="intro-logo" alt="شعار المطعم">
+      <div class="intro-title" id="introTitle">The Food Master</div>
+      <div class="intro-line"></div>
+      <div class="intro-subtitle">أهلاً وسهلاً بكم</div>
+    </div>
+  </div>
+
+  <!-- الصفحة الرئيسية -->
+  <main class="page">
+
+    <section id="homePage">
+
+      <img id="topLogo" class="top-logo" alt="شعار المطعم">
+
+      <div class="brand">
+        <h1 id="restaurantName">The Food Master</h1>
+        <p>اختر الفرع لعرض المنيو</p>
+      </div>
+
+      <div class="section-title">
+        <h2>فروعنا</h2>
+        <span></span>
+      </div>
+
+      <div id="branches" class="branches">
+        <div class="loading">جاري تحميل الفروع...</div>
+      </div>
+
+    </section>
+
+    <!-- صفحة المنيو -->
+    <section id="menuPage" class="hidden">
+
+      <button class="back-button" onclick="showHome()">
+        ← العودة للفروع
+      </button>
+
+      <div class="menu-header">
+        <h2 id="menuBranchName"></h2>
+        <p>قائمة الطعام</p>
+      </div>
+
+      <div id="categories" class="categories"></div>
+
+      <div id="items" class="items"></div>
+
+    </section>
+
+  </main>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    /* ==========================================
+       SUPABASE
+    ========================================== */
+
+    const SUPABASE_URL =
+      "https://vgqtfataqtqalwombdcz.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_p2Cu603AG7YVMiIR5DAvEA_AyyjBUAE";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+    /* ==========================================
+       DEMO DATA
+       ستظهر مؤقتًا إذا لم توجد فروع بعد
+    ========================================== */
+
+    const demoBranches = [
+      {
+        id: "demo-1",
+        name: "الفرع الرئيسي",
+        phone: "0790000000",
+        address: "الموقع الرئيسي",
+        maps_url: "https://maps.google.com",
+        image_url: ""
+      },
+      {
+        id: "demo-2",
+        name: "فرع جديد",
+        phone: "0790000000",
+        address: "موقع الفرع",
+        maps_url: "https://maps.google.com",
+        image_url: ""
+      }
+    ];
+
+    const demoCategories = [
+      {
+        id: "demo-cat-1",
+        name: "الوجبات"
+      },
+      {
+        id: "demo-cat-2",
+        name: "المشروبات"
+      }
+    ];
+
+    const demoItems = [
+      {
+        id: "demo-item-1",
+        category_id: "demo-cat-1",
+        name: "وجبة الزرب",
+        description: "وجبة لذيذة ومحضرة على الطريقة الأصلية",
+        price: 4.00,
+        image_url: ""
+      },
+      {
+        id: "demo-item-2",
+        category_id: "demo-cat-2",
+        name: "مشروب غازي",
+        description: "مشروب بارد",
+        price: 0.75,
+        image_url: ""
+      }
+    ];
+
+    /* ==========================================
+       HELPERS
+    ========================================== */
+
+    function placeholderImage(text) {
+      return "https://placehold.co/600x400/191919/d6a84f?text=" +
+        encodeURIComponent(text);
+    }
+
+    function formatPrice(price) {
+      return Number(price).toFixed(2) + " د.أ";
+    }
+
+    /* ==========================================
+       LOAD RESTAURANT
+    ========================================== */
+
+    async function loadRestaurant() {
+
+      const { data, error } =
+        await supabaseClient
+          .from("restaurant_settings")
+          .select("*")
+          .limit(1)
+          .maybeSingle();
+
+      if (!error && data) {
+        document.getElementById("restaurantName").textContent =
+          data.name;
+
+        document.getElementById("introTitle").textContent =
+          data.name;
+      }
+
+      /*
+        ضع رابط الشعار هنا مؤقتًا إذا أردت الاختبار.
+        لاحقًا سيصبح من لوحة التحكم.
+      */
+
+      const logo =
+        data?.logo_url ||
+        placeholderImage("LOGO");
+
+      document.getElementById("topLogo").src = logo;
+      document.getElementById("introLogo").src = logo;
+    }
+
+    /* ==========================================
+       INTRO
+    ========================================== */
+
+    async function loadIntro() {
+
+      const { data, error } =
+        await supabaseClient
+          .from("intro_media")
+          .select("*")
+          .eq("is_active", true)
+          .order("sort_order");
+
+      const firstImage =
+        (!error && data && data.length)
+          ? data[0].image_url
+          : placeholderImage("THE FOOD MASTER");
+
+      document.getElementById("introBg").style.backgroundImage =
+        `url("${firstImage}")`;
+
+      setTimeout(() => {
+        document.getElementById("intro").style.opacity = "0";
+        document.getElementById("intro").style.pointerEvents = "none";
+
+        setTimeout(() => {
+          document.getElementById("intro").remove();
+        }, 500);
+
+      }, 2800);
+    }
+
+    /* ==========================================
+       LOAD BRANCHES
+    ========================================== */
+
+    async function loadBranches() {
+
+      const container =
+        document.getElementById("branches");
+
+      const { data, error } =
+        await supabaseClient
+          .from("branches")
+          .select("*")
+          .eq("is_active", true)
+          .order("sort_order");
+
+      let branches =
+        (!error && data && data.length)
+          ? data
+          : demoBranches;
+
+      container.innerHTML = "";
+
+      branches.forEach(branch => {
+
+        const image =
+          branch.image_url ||
+          placeholderImage(branch.name);
+
+        const phone =
+          branch.phone || "غير متوفر";
+
+        const address =
+          branch.address || "موقع الفرع";
+
+        const maps =
+          branch.maps_url || "#";
+
+        const card = document.createElement("article");
+
+        card.className = "branch";
+
+        card.innerHTML = `
+          <img
+            class="branch-image"
+            src="${image}"
+            alt="${branch.name}"
+          >
+
+          <div class="branch-body">
+
+            <div class="branch-name">
+              ${branch.name}
+            </div>
+
+            <div class="branch-info">
+              <div>📍 ${address}</div>
+              <div>☎️ ${phone}</div>
+            </div>
+
+            <div class="branch-actions">
+
+              <a
+                class="action"
+                href="${maps}"
+                target="_blank"
+              >
+                📍 الموقع
+              </a>
+
+              <a
+                class="action primary"
+                href="#"
+                onclick="openMenu('${branch.id}', '${branch.name.replace(/'/g, "\\'")}'); return false;"
+              >
+                🍽️ عرض المنيو
+              </a>
+
+            </div>
+
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    /* ==========================================
+       OPEN MENU
+    ========================================== */
+
+    async function openMenu(branchId, branchName) {
+
+      document.getElementById("homePage")
+        .classList.add("hidden");
+
+      document.getElementById("menuPage")
+        .classList.remove("hidden");
+
+      document.getElementById("menuBranchName")
+        .textContent = branchName;
+
+      if (branchId.startsWith("demo-")) {
+
+        renderDemoMenu();
+
+        return;
+      }
+
+      const { data: categories } =
+        await supabaseClient
+          .from("categories")
+          .select("*")
+          .eq("branch_id", branchId)
+          .eq("is_active", true)
+          .order("sort_order");
+
+      renderCategories(
+        categories || [],
+        branchId
+      );
+    }
+
+    /* ==========================================
+       CATEGORIES
+    ========================================== */
+
+    async function renderCategories(
+      categories,
+      branchId
+    ) {
+
+      const container =
+        document.getElementById("categories");
+
+      container.innerHTML = "";
+
+      if (!categories.length) {
+
+        document.getElementById("items").innerHTML =
+          `<div class="empty">لا توجد أصناف حاليًا</div>`;
+
+        return;
+      }
+
+      categories.forEach((category, index) => {
+
+        const button =
+          document.createElement("button");
+
+        button.className =
+          "category-button" +
+          (index === 0 ? " active" : "");
+
+        button.textContent =
+          category.name;
+
+        button.onclick = () => {
+
+          document
+            .querySelectorAll(".category-button")
+            .forEach(b =>
+              b.classList.remove("active")
+            );
+
+          button.classList.add("active");
+
+          loadItems(
+            category.id,
+            branchId
+          );
+        };
+
+        container.appendChild(button);
+      });
+
+      await loadItems(
+        categories[0].id,
+        branchId
+      );
+    }
+
+    /* ==========================================
+       ITEMS
+    ========================================== */
+
+    async function loadItems(
+      categoryId,
+      branchId
+    ) {
+
+      const container =
+        document.getElementById("items");
+
+      container.innerHTML =
+        `<div class="loading">جاري تحميل الأصناف...</div>`;
+
+      const { data, error } =
+        await supabaseClient
+          .from("menu_items")
+          .select("*")
+          .eq("branch_id", branchId)
+          .eq("category_id", categoryId)
+          .eq("is_available", true)
+          .order("sort_order");
+
+      renderItems(
+        (!error && data) ? data : []
+      );
+    }
+
+    function renderItems(items) {
+
+      const container =
+        document.getElementById("items");
+
+      container.innerHTML = "";
+
+      if (!items.length) {
+
+        container.innerHTML =
+          `<div class="empty">لا توجد أصناف في هذا القسم</div>`;
+
+        return;
+      }
+
+      items.forEach(item => {
+
+        const image =
+          item.image_url ||
+          placeholderImage(item.name);
+
+        const card =
+          document.createElement("article");
+
+        card.className = "item";
+
+        card.innerHTML = `
+          <img
+            class="item-image"
+            src="${image}"
+            alt="${item.name}"
+          >
+
+          <div class="item-info">
+
+            <div class="item-name">
+              ${item.name}
+            </div>
+
+            ${
+              item.description
+                ? `<div class="item-description">
+                    ${item.description}
+                   </div>`
+                : ""
+            }
+
+            <div class="item-price">
+              ${formatPrice(item.price)}
+            </div>
+
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    /* ==========================================
+       DEMO MENU
+    ========================================== */
+
+    function renderDemoMenu() {
+
+      const container =
+        document.getElementById("categories");
+
+      container.innerHTML = "";
+
+      demoCategories.forEach((category, index) => {
+
+        const button =
+          document.createElement("button");
+
+        button.className =
+          "category-button" +
+          (index === 0 ? " active" : "");
+
+        button.textContent =
+          category.name;
+
+        button.onclick = () => {
+
+          document
+            .querySelectorAll(".category-button")
+            .forEach(b =>
+              b.classList.remove("active")
+            );
+
+          button.classList.add("active");
+
+          const items =
+            demoItems.filter(
+              item =>
+                item.category_id === category.id
+            );
+
+          renderItems(items);
+        };
+
+        container.appendChild(button);
+      });
+
+      renderItems(
+        demoItems.filter(
+          item =>
+            item.category_id === demoCategories[0].id
+        )
+      );
+    }
+
+    /* ==========================================
+       BACK
+    ========================================== */
+
+    function showHome() {
+
+      document.getElementById("menuPage")
+        .classList.add("hidden");
+
+      document.getElementById("homePage")
+        .classList.remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    /* ==========================================
+       START
+    ========================================== */
+
+    async function startApp() {
+
+      await loadRestaurant();
+
+      await loadIntro();
+
+      await loadBranches();
+    }
+
+    startApp();
+
+  </script>
+
+</body>
+</html>

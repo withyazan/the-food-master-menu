@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الإدارة | The Food Master</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #090909;
+      --card: #151515;
+      --card2: #1d1d1d;
+      --text: #fff;
+      --muted: #aaa;
+      --gold: #d6a84f;
+      --gold2: #f1c86b;
+      --border: rgba(255,255,255,.1);
+      --danger: #d9534f;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* LOGIN */
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(145deg, #181818, #101010);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .logo {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 18px;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      background: #222;
+    }
+
+    .login-title {
+      text-align: center;
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .login-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      color: #ddd;
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0e0e0e;
+      color: white;
+      outline: none;
+      font-size: 14px;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .field input:focus {
+      border-color: var(--gold);
+    }
+
+    .login-button {
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 13px;
+      background: var(--gold);
+      color: #111;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .login-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .error {
+      color: #ff8b87;
+      background: rgba(217,83,79,.1);
+      border: 1px solid rgba(217,83,79,.25);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    /* DASHBOARD */
+
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 16px 50px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .header-title h1 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .header-title p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .logout {
+      border: 1px solid var(--border);
+      background: #181818;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 11px;
+      cursor: pointer;
+    }
+
+    .welcome {
+      background: linear-gradient(135deg, #1d1d1d, #111);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .welcome h2 {
+      font-size: 19px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .admin-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 20px 15px;
+      min-height: 120px;
+    }
+
+    .admin-card .icon {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .admin-card h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .admin-card p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 650px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <section id="loginPage" class="login-page">
+
+    <div class="login-card">
+
+      <img
+        class="logo"
+        src="https://placehold.co/200x200/191919/d6a84f?text=FM"
+        alt="The Food Master"
+      >
+
+      <h1 class="login-title">The Food Master</h1>
+
+      <p class="login-subtitle">
+        تسجيل دخول لوحة الإدارة
+      </p>
+
+      <form id="loginForm">
+
+        <div class="field">
+          <label for="username">اسم المستخدم</label>
+
+          <input
+            id="username"
+            type="text"
+            autocomplete="username"
+            placeholder="admin"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">كلمة المرور</label>
+
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="كلمة المرور"
+            required
+          >
+        </div>
+
+        <button
+          id="loginButton"
+          class="login-button"
+          type="submit"
+        >
+          دخول لوحة الإدارة
+        </button>
+
+      </form>
+
+      <div id="loginError" class="error hidden"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="dashboard hidden">
+
+    <div class="header">
+
+      <div class="header-title">
+        <h1>لوحة الإدارة</h1>
+        <p>The Food Master</p>
+      </div>
+
+      <button
+        class="logout"
+        onclick="logout()"
+      >
+        تسجيل الخروج
+      </button>
+
+    </div>
+
+
+    <div class="welcome">
+
+      <h2>مرحبًا بك 👋</h2>
+
+      <p>
+        تم تسجيل الدخول بنجاح.
+        من هنا سنتمكن من إدارة الفروع والمنيو والصور
+        وإعدادات المطعم.
+      </p>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="admin-card">
+        <div class="icon">🏪</div>
+        <h3>الفروع</h3>
+        <p>إضافة وتعديل وحذف فروع المطعم.</p>
+      </div>
+
+      <div class="admin-card">
+        <div class="icon">🍽️</div>
+        <h3>المنيو</h3>
+        <p>إدارة الأقسام والأصناف والأسعار.</p>
+      </div>
+
+      <div class="admin-card">
+        <div class="icon">📸</div>
+        <h3>الصور</h3>
+        <p>إدارة صور المطعم وصور شاشة البداية.</p>
+      </div>
+
+      <div class="admin-card">
+        <div class="icon">📍</div>
+        <h3>المواقع</h3>
+        <p>إدارة موقع كل فرع ورابط الخرائط.</p>
+      </div>
+
+      <div class="admin-card">
+        <div class="icon">📞</div>
+        <h3>بيانات الفروع</h3>
+        <p>أرقام الهاتف والعناوين ومعلومات الفروع.</p>
+      </div>
+
+      <div class="admin-card">
+        <div class="icon">⚙️</div>
+        <h3>إعدادات المطعم</h3>
+        <p>اسم المطعم والشعار والإعدادات العامة.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://vgqtfataqtqalwombdcz.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_p2Cu603AG7YVMiIR5DAvEA_AyyjBUAE";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const loginError =
+      document.getElementById("loginError");
+
+
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        loginError.classList.add("hidden");
+
+        const username =
+          document.getElementById("username")
+            .value
+            .trim();
+
+        const password =
+          document.getElementById("password")
+            .value;
+
+
+        loginButton.disabled = true;
+        loginButton.textContent = "جاري تسجيل الدخول...";
+
+
+        try {
+
+          const { data, error } =
+            await supabaseClient.rpc(
+              "admin_login",
+              {
+                p_username: username,
+                p_password: password
+              }
+            );
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          let result = data;
+
+
+          if (typeof result === "string") {
+
+            try {
+              result = JSON.parse(result);
+            } catch (e) {
+              result = null;
+            }
+
+          }
+
+
+          if (
+            result &&
+            (
+              result.success === true ||
+              result.token
+            )
+          ) {
+
+            if (result.token) {
+
+              sessionStorage.setItem(
+                "admin_token",
+                result.token
+              );
+
+            }
+
+            sessionStorage.setItem(
+              "admin_logged_in",
+              "true"
+            );
+
+            showDashboard();
+
+          } else {
+
+            throw new Error(
+              "اسم المستخدم أو كلمة المرور غير صحيحة"
+            );
+
+          }
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          loginError.textContent =
+            "تعذر تسجيل الدخول. تأكد من اسم المستخدم وكلمة المرور.";
+
+          loginError.classList.remove("hidden");
+
+        } finally {
+
+          loginButton.disabled = false;
+          loginButton.textContent =
+            "دخول لوحة الإدارة";
+
+        }
+
+      }
+    );
+
+
+    function showDashboard() {
+
+      document
+        .getElementById("loginPage")
+        .classList.add("hidden");
+
+      document
+        .getElementById("dashboard")
+        .classList.remove("hidden");
+
+    }
+
+
+    function logout() {
+
+      sessionStorage.removeItem(
+        "admin_token"
+      );
+
+      sessionStorage.removeItem(
+        "admin_logged_in"
+      );
+
+      location.reload();
+
+    }
+
+
+    function checkSession() {
+
+      const loggedIn =
+        sessionStorage.getItem(
+          "admin_logged_in"
+        );
+
+      if (loggedIn === "true") {
+        showDashboard();
+      }
+
+    }
+
+
+    checkSession();
+
+  </script>
+
+</body>
+</html>

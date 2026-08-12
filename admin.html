@@ -491,14 +491,19 @@
           }
 
 
-        } catch (error) {
+      } catch (error) {
 
-          console.error(error);
+  console.error("LOGIN ERROR:", error);
 
-          loginError.textContent =
-            "تعذر تسجيل الدخول. تأكد من اسم المستخدم وكلمة المرور.";
+  loginError.textContent =
+    "خطأ: " +
+    (error.message || "خطأ غير معروف") +
+    " | code: " +
+    (error.code || "بدون كود");
 
-          loginError.classList.remove("hidden");
+  loginError.classList.remove("hidden");
+
+}
 
         } finally {
 

@@ -258,7 +258,7 @@
         تسجيل دخول لوحة الإدارة
       </p>
 
-      <form id="loginForm">
+      <form id="loginForm" onsubmit="loginAdmin(event)">
 
         <div class="field">
           <label for="username">اسم المستخدم</label>
@@ -285,10 +285,10 @@
         </div>
 
         <button
-          id="loginButton"
-          class="login-button"
-          type="submit"
-        >
+  id="loginButton"
+  class="login-button"
+  type="submit"
+>
           دخول لوحة الإدارة
         </button>
 
@@ -405,118 +405,84 @@
       document.getElementById("loginError");
 
 
-    loginForm.addEventListener(
-      "submit",
-      async function(event) {
+async function loginAdmin(event) {
 
-        event.preventDefault();
+  event.preventDefault();
 
-        loginError.classList.add("hidden");
+  loginError.classList.add("hidden");
 
-        const username =
-          document.getElementById("username")
-            .value
-            .trim();
+  const username =
+    document.getElementById("username").value.trim();
 
-        const password =
-          document.getElementById("password")
-            .value;
+  const password =
+    document.getElementById("password").value;
 
+  loginButton.disabled = true;
+  loginButton.textContent = "جاري تسجيل الدخول...";
 
-        loginButton.disabled = true;
-        loginButton.textContent = "جاري تسجيل الدخول...";
+  try {
 
-
-        try {
-
-          const { data, error } =
-            await supabaseClient.rpc(
-              "admin_login",
-              {
-                p_username: username,
-                p_password: password
-              }
-            );
-
-
-          if (error) {
-            throw error;
-          }
-
-
-          let result = data;
-
-
-          if (typeof result === "string") {
-
-            try {
-              result = JSON.parse(result);
-            } catch (e) {
-              result = null;
-            }
-
-          }
-
-
-          if (
-            result &&
-            (
-              result.success === true ||
-              result.token
-            )
-          ) {
-
-            if (result.token) {
-
-              sessionStorage.setItem(
-                "admin_token",
-                result.token
-              );
-
-            }
-
-            sessionStorage.setItem(
-              "admin_logged_in",
-              "true"
-            );
-
-            showDashboard();
-
-          } else {
-
-            throw new Error(
-              "اسم المستخدم أو كلمة المرور غير صحيحة"
-            );
-
-          }
-
-
-      } catch (error) {
-
-  console.error("LOGIN ERROR:", error);
-
-  loginError.textContent =
-    "خطأ: " +
-    (error.message || "خطأ غير معروف") +
-    " | code: " +
-    (error.code || "بدون كود");
-
-  loginError.classList.remove("hidden");
-
-}
-
-        } finally {
-
-          loginButton.disabled = false;
-          loginButton.textContent =
-            "دخول لوحة الإدارة";
-
+    const { data, error } =
+      await supabaseClient.rpc(
+        "admin_login",
+        {
+          p_username: username,
+          p_password: password
         }
+      );
 
+    if (error) {
+      throw error;
+    }
+
+    let result = data;
+
+    if (typeof result === "string") {
+      try {
+        result = JSON.parse(result);
+      } catch (e) {}
+    }
+
+    if (result && result.success === true) {
+
+      if (result.token) {
+        sessionStorage.setItem(
+          "admin_token",
+          result.token
+        );
       }
-    );
 
+      sessionStorage.setItem(
+        "admin_logged_in",
+        "true"
+      );
 
+      showDashboard();
+
+    } else {
+
+      throw new Error(
+        "اسم المستخدم أو كلمة المرور غير صحيحة"
+      );
+    }
+
+  } catch (error) {
+
+    console.error("LOGIN ERROR:", error);
+
+    loginError.textContent =
+      "خطأ: " +
+      (error.message || "خطأ غير معروف");
+
+    loginError.classList.remove("hidden");
+
+  } finally {
+
+    loginButton.disabled = false;
+    loginButton.textContent =
+      "دخول لوحة الإدارة";
+  }
+}
     function showDashboard() {
 
       document

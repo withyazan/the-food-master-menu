@@ -1,1 +1,2317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>إدارة The Food Master</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#090909;
+  --card:#151515;
+  --card2:#1d1d1d;
+  --text:#fff;
+  --muted:#aaa;
+  --gold:#d6a84f;
+  --gold2:#f1c86b;
+  --border:rgba(255,255,255,.1);
+  --danger:#d9534f;
+  --green:#36c275;
+}
+
+body{
+  font-family:"Cairo",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:18px 14px 60px;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.logo-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-title img{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--gold);
+}
+
+.logo-title h1{
+  font-size:21px;
+  font-weight:800;
+}
+
+.logo-title p{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.status{
+  padding:7px 11px;
+  border-radius:10px;
+  background:#151515;
+  border:1px solid var(--border);
+  color:#aaa;
+  font-size:11px;
+}
+
+.status.ok{
+  color:#62dc91;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:8px;
+  margin-bottom:18px;
+}
+
+.tab{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#ddd;
+  padding:10px 15px;
+  border-radius:11px;
+}
+
+.tab.active{
+  background:var(--gold);
+  color:#111;
+  border-color:var(--gold);
+  font-weight:800;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:15px;
+}
+
+.panel h2{
+  font-size:18px;
+  margin-bottom:5px;
+}
+
+.panel-description{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:18px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:11px;
+}
+
+.field label{
+  display:block;
+  color:#ddd;
+  font-size:12px;
+  margin-bottom:5px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  background:#0d0d0d;
+  border:1px solid var(--border);
+  color:white;
+  border-radius:10px;
+  padding:11px 12px;
+  outline:none;
+  font-size:13px;
+}
+
+.field textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:var(--gold);
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:10px 15px;
+  font-weight:700;
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:#111;
+}
+
+.btn-dark{
+  background:#222;
+  color:white;
+  border:1px solid var(--border);
+}
+
+.btn-danger{
+  background:#421c1b;
+  color:#ffaaa6;
+  border:1px solid rgba(217,83,79,.25);
+}
+
+.btn-green{
+  background:#123b27;
+  color:#7ee7a8;
+  border:1px solid rgba(54,194,117,.25);
+}
+
+.list{
+  display:grid;
+  gap:10px;
+  margin-top:15px;
+}
+
+.item{
+  background:#101010;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:13px;
+}
+
+.item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.item h3{
+  font-size:14px;
+}
+
+.item p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+  margin-top:3px;
+}
+
+.badge{
+  display:inline-block;
+  padding:3px 7px;
+  border-radius:7px;
+  font-size:10px;
+  background:#252525;
+  color:#aaa;
+}
+
+.badge.active{
+  color:#71df9b;
+  background:#12321f;
+}
+
+.item-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:10px;
+}
+
+.item-actions button{
+  padding:7px 10px;
+  font-size:11px;
+  border-radius:8px;
+}
+
+.message{
+  padding:11px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:12px;
+  display:none;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.success{
+  background:#102b1c;
+  color:#7ee7a8;
+}
+
+.message.error{
+  background:#351817;
+  color:#ff9b96;
+}
+
+.empty{
+  color:#777;
+  text-align:center;
+  padding:25px 10px;
+  font-size:13px;
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.quick-card{
+  background:#111;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+}
+
+.quick-card strong{
+  display:block;
+  font-size:22px;
+  color:var(--gold2);
+}
+
+.quick-card span{
+  color:#aaa;
+  font-size:11px;
+}
+
+@media(min-width:650px){
+
+  .form-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .quick{
+    grid-template-columns:repeat(5,1fr);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header class="header">
+
+    <div class="logo-title">
+
+      <img
+        id="restaurantLogo"
+        src="https://placehold.co/200x200/191919/d6a84f?text=FM"
+        alt="The Food Master"
+      >
+
+      <div>
+        <h1>The Food Master</h1>
+        <p>لوحة إدارة المطاعم والفروع</p>
+      </div>
+
+    </div>
+
+    <div id="connectionStatus" class="status">
+      جاري الاتصال...
+    </div>
+
+  </header>
+
+
+  <!-- QUICK STATS -->
+
+  <div class="panel">
+
+    <h2>نظرة سريعة</h2>
+
+    <div class="quick">
+
+      <div class="quick-card">
+        <strong id="countBranches">0</strong>
+        <span>الفروع</span>
+      </div>
+
+      <div class="quick-card">
+        <strong id="countCategories">0</strong>
+        <span>أقسام المنيو</span>
+      </div>
+
+      <div class="quick-card">
+        <strong id="countItems">0</strong>
+        <span>الأصناف</span>
+      </div>
+
+      <div class="quick-card">
+        <strong id="countOffers">0</strong>
+        <span>العروض</span>
+      </div>
+
+      <div class="quick-card">
+        <strong id="countIntro">0</strong>
+        <span>صور البداية</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TABS -->
+
+  <div class="tabs">
+
+    <button class="tab active" data-section="branches">
+      🏪 الفروع
+    </button>
+
+    <button class="tab" data-section="categories">
+      📂 أقسام المنيو
+    </button>
+
+    <button class="tab" data-section="items">
+      🍽️ الأصناف
+    </button>
+
+    <button class="tab" data-section="offers">
+      🎁 العروض
+    </button>
+
+    <button class="tab" data-section="intro">
+      🖼️ صور البداية
+    </button>
+
+    <button class="tab" data-section="settings">
+      ⚙️ إعدادات المطعم
+    </button>
+
+  </div>
+
+
+  <!-- BRANCHES -->
+
+  <section id="branches" class="section active">
+
+    <div class="panel">
+
+      <h2>الفروع</h2>
+
+      <p class="panel-description">
+        هنا نضيف جميع فروع أصل الزرب، بالإضافة إلى The Food Master مرج الحمام.
+      </p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>اسم الفرع</label>
+          <input id="branchName" placeholder="مثال: أصل الزرب - المقابلين">
+        </div>
+
+        <div class="field">
+          <label>المجموعة</label>
+
+          <select id="branchGroup">
+
+            <option value="asl_al_zarb">
+              مطاعم أصل الزرب
+            </option>
+
+            <option value="food_master">
+              The Food Master مرج الحمام
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+          <label>نوع الفرع</label>
+
+          <select id="branchType">
+
+            <option value="branch">
+              فرع عادي
+            </option>
+
+            <option value="food_court">
+              Food Court
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="field">
+          <label>رقم الهاتف</label>
+          <input id="branchPhone" type="tel" placeholder="07xxxxxxxx">
+        </div>
+
+        <div class="field">
+          <label>العنوان</label>
+          <input id="branchAddress" placeholder="مثال: المقابلين">
+        </div>
+
+        <div class="field">
+          <label>رابط Google Maps</label>
+          <input id="branchMaps" placeholder="https://maps.google.com/...">
+        </div>
+
+        <div class="field">
+          <label>رابط صورة الفرع</label>
+          <input id="branchImage" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>ترتيب الظهور</label>
+          <input id="branchOrder" type="number" value="0">
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn btn-gold"
+          onclick="addBranch()"
+        >
+          + إضافة الفرع
+        </button>
+
+        <button
+          class="btn btn-dark"
+          onclick="clearBranchForm()"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="branchMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>الفروع الموجودة</h2>
+
+      <div id="branchesList" class="list">
+        <div class="empty">جاري التحميل...</div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATEGORIES -->
+
+  <section id="categories" class="section">
+
+    <div class="panel">
+
+      <h2>أقسام المنيو</h2>
+
+      <p class="panel-description">
+        كل فرع يمكن أن يكون له أقسام ومنيو مختلف.
+      </p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>الفرع</label>
+          <select id="categoryBranch"></select>
+        </div>
+
+        <div class="field">
+          <label>اسم القسم</label>
+          <input id="categoryName" placeholder="مثال: المشاوي">
+        </div>
+
+        <div class="field">
+          <label>وصف القسم</label>
+          <textarea id="categoryDescription"></textarea>
+        </div>
+
+        <div class="field">
+          <label>رابط صورة القسم</label>
+          <input id="categoryImage" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>ترتيب القسم</label>
+          <input id="categoryOrder" type="number" value="0">
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn btn-gold"
+          onclick="addCategory()"
+        >
+          + إضافة القسم
+        </button>
+
+        <button
+          class="btn btn-dark"
+          onclick="clearCategoryForm()"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="categoryMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>الأقسام الحالية</h2>
+
+      <div id="categoriesList" class="list"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ITEMS -->
+
+  <section id="items" class="section">
+
+    <div class="panel">
+
+      <h2>أصناف المنيو</h2>
+
+      <p class="panel-description">
+        الأصناف مرتبطة بالفرع والقسم الخاص به.
+      </p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>الفرع</label>
+          <select id="itemBranch" onchange="updateItemCategories()"></select>
+        </div>
+
+        <div class="field">
+          <label>القسم</label>
+          <select id="itemCategory"></select>
+        </div>
+
+        <div class="field">
+          <label>اسم الصنف</label>
+          <input id="itemName" placeholder="مثال: وجبة أصل الزرب">
+        </div>
+
+        <div class="field">
+          <label>السعر</label>
+          <input id="itemPrice" type="number" step="0.01" placeholder="5.00">
+        </div>
+
+        <div class="field">
+          <label>الوصف</label>
+          <textarea id="itemDescription"></textarea>
+        </div>
+
+        <div class="field">
+          <label>رابط صورة الصنف</label>
+          <input id="itemImage" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>ترتيب الصنف</label>
+          <input id="itemOrder" type="number" value="0">
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn btn-gold"
+          onclick="addMenuItem()"
+        >
+          + إضافة الصنف
+        </button>
+
+        <button
+          class="btn btn-dark"
+          onclick="clearItemForm()"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="itemMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>الأصناف الحالية</h2>
+
+      <div id="itemsList" class="list"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- OFFERS -->
+
+  <section id="offers" class="section">
+
+    <div class="panel">
+
+      <h2>العروض</h2>
+
+      <p class="panel-description">
+        كل فرع يستطيع أن يكون لديه عروض خاصة به.
+      </p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>الفرع</label>
+          <select id="offerBranch"></select>
+        </div>
+
+        <div class="field">
+          <label>عنوان العرض</label>
+          <input id="offerTitle" placeholder="مثال: عرض العائلة">
+        </div>
+
+        <div class="field">
+          <label>وصف العرض</label>
+          <textarea id="offerDescription"></textarea>
+        </div>
+
+        <div class="field">
+          <label>السعر</label>
+          <input id="offerPrice" type="number" step="0.01">
+        </div>
+
+        <div class="field">
+          <label>رابط صورة العرض</label>
+          <input id="offerImage" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>ترتيب العرض</label>
+          <input id="offerOrder" type="number" value="0">
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn btn-gold"
+          onclick="addOffer()"
+        >
+          + إضافة العرض
+        </button>
+
+        <button
+          class="btn btn-dark"
+          onclick="clearOfferForm()"
+        >
+          مسح
+        </button>
+
+      </div>
+
+      <div id="offerMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>العروض الحالية</h2>
+
+      <div id="offersList" class="list"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- INTRO -->
+
+  <section id="intro" class="section">
+
+    <div class="panel">
+
+      <h2>صور شاشة البداية</h2>
+
+      <p class="panel-description">
+        هذه الصور يمكن استخدامها في الواجهة السريعة عند دخول الزبون.
+      </p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>رابط الصورة</label>
+          <input id="introImage" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>العنوان</label>
+          <input id="introTitle" placeholder="The Food Master">
+        </div>
+
+        <div class="field">
+          <label>ترتيب الصورة</label>
+          <input id="introOrder" type="number" value="0">
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn btn-gold"
+          onclick="addIntro()"
+        >
+          + إضافة الصورة
+        </button>
+
+      </div>
+
+      <div id="introMessage" class="message"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>صور البداية الحالية</h2>
+
+      <div id="introList" class="list"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SETTINGS -->
+
+  <section id="settings" class="section">
+
+    <div class="panel">
+
+      <h2>إعدادات المطعم</h2>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>اسم المطعم</label>
+          <input id="settingName">
+        </div>
+
+        <div class="field">
+          <label>رابط الشعار</label>
+          <input id="settingLogo">
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn btn-gold"
+          onclick="saveSettings()"
+        >
+          حفظ الإعدادات
+        </button>
+
+      </div>
+
+      <div id="settingsMessage" class="message"></div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+  "https://vgqtfataqtqalwomdbcz.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_p2Cu603AG7YVMiIR5DAvEA_AyyjBUAE";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =========================
+   DATA
+========================= */
+
+let branches = [];
+let categories = [];
+let menuItems = [];
+let offers = [];
+let introMedia = [];
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function showMessage(id,text,type="success"){
+
+  const el =
+    document.getElementById(id);
+
+  el.textContent = text;
+
+  el.className =
+    "message show " + type;
+
+  setTimeout(()=>{
+    el.className = "message";
+  },4000);
+
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+document
+.querySelectorAll(".tab")
+.forEach(button => {
+
+  button.addEventListener("click",()=>{
+
+    document
+    .querySelectorAll(".tab")
+    .forEach(x=>x.classList.remove("active"));
+
+    document
+    .querySelectorAll(".section")
+    .forEach(x=>x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document
+    .getElementById(button.dataset.section)
+    .classList.add("active");
+
+  });
+
+});
+
+
+/* =========================
+   LOAD ALL
+========================= */
+
+async function loadAll(){
+
+  try{
+
+    const results =
+      await Promise.all([
+
+        supabaseClient
+        .from("branches")
+        .select("*")
+        .order("sort_order"),
+
+        supabaseClient
+        .from("categories")
+        .select("*")
+        .order("sort_order"),
+
+        supabaseClient
+        .from("menu_items")
+        .select("*")
+        .order("sort_order"),
+
+        supabaseClient
+        .from("offers")
+        .select("*")
+        .order("sort_order"),
+
+        supabaseClient
+        .from("intro_media")
+        .select("*")
+        .order("sort_order"),
+
+        supabaseClient
+        .from("restaurant_settings")
+        .select("*")
+        .limit(1)
+
+      ]);
+
+
+    const errors =
+      results.filter(x=>x.error);
+
+    if(errors.length){
+
+      throw errors[0].error;
+
+    }
+
+
+    branches =
+      results[0].data || [];
+
+    categories =
+      results[1].data || [];
+
+    menuItems =
+      results[2].data || [];
+
+    offers =
+      results[3].data || [];
+
+    introMedia =
+      results[4].data || [];
+
+
+    renderEverything();
+
+    document
+    .getElementById("connectionStatus")
+    .textContent =
+      "متصل بقاعدة البيانات ✓";
+
+    document
+    .getElementById("connectionStatus")
+    .classList.add("ok");
+
+
+    const settings =
+      results[5].data?.[0];
+
+    if(settings){
+
+      document
+      .getElementById("settingName")
+      .value =
+        settings.name || "";
+
+      document
+      .getElementById("settingLogo")
+      .value =
+        settings.logo_url || "";
+
+      if(settings.logo_url){
+
+        document
+        .getElementById("restaurantLogo")
+        .src =
+          settings.logo_url;
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    document
+    .getElementById("connectionStatus")
+    .textContent =
+      "خطأ في الاتصال";
+
+    alert(
+      "حدث خطأ أثناء تحميل البيانات:\n" +
+      (error.message || error)
+    );
+
+  }
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderEverything(){
+
+  document
+  .getElementById("countBranches")
+  .textContent =
+    branches.length;
+
+  document
+  .getElementById("countCategories")
+  .textContent =
+    categories.length;
+
+  document
+  .getElementById("countItems")
+  .textContent =
+    menuItems.length;
+
+  document
+  .getElementById("countOffers")
+  .textContent =
+    offers.length;
+
+  document
+  .getElementById("countIntro")
+  .textContent =
+    introMedia.length;
+
+
+  renderBranches();
+
+  renderCategories();
+
+  renderItems();
+
+  renderOffers();
+
+  renderIntro();
+
+  updateBranchSelects();
+
+}
+
+
+/* =========================
+   BRANCHES
+========================= */
+
+async function addBranch(){
+
+  const name =
+    document.getElementById("branchName")
+    .value.trim();
+
+  if(!name){
+
+    showMessage(
+      "branchMessage",
+      "اكتب اسم الفرع",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const payload = {
+
+    name,
+
+    group_name:
+      document.getElementById("branchGroup").value,
+
+    branch_type:
+      document.getElementById("branchType").value,
+
+    phone:
+      document.getElementById("branchPhone").value.trim(),
+
+    address:
+      document.getElementById("branchAddress").value.trim(),
+
+    maps_url:
+      document.getElementById("branchMaps").value.trim(),
+
+    image_url:
+      document.getElementById("branchImage").value.trim(),
+
+    sort_order:
+      Number(document.getElementById("branchOrder").value) || 0,
+
+    is_active:true
+
+  };
+
+
+  const {error} =
+    await supabaseClient
+    .from("branches")
+    .insert(payload);
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "branchMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "branchMessage",
+    "تمت إضافة الفرع بنجاح ✓"
+  );
+
+  clearBranchForm();
+
+  await loadAll();
+
+}
+
+
+function clearBranchForm(){
+
+  [
+    "branchName",
+    "branchPhone",
+    "branchAddress",
+    "branchMaps",
+    "branchImage"
+  ]
+  .forEach(id=>{
+    document.getElementById(id).value="";
+  });
+
+}
+
+
+function renderBranches(){
+
+  const list =
+    document.getElementById("branchesList");
+
+
+  if(!branches.length){
+
+    list.innerHTML =
+      '<div class="empty">لا توجد فروع حتى الآن</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    branches.map(branch=>{
+
+      const group =
+        branch.group_name === "food_master"
+        ? "The Food Master مرج الحمام"
+        : "مطاعم أصل الزرب";
+
+
+      return `
+
+      <div class="item">
+
+        <div class="item-top">
+
+          <div>
+
+            <h3>
+              ${escapeHtml(branch.name)}
+            </h3>
+
+            <p>
+              ${escapeHtml(branch.address || "")}
+            </p>
+
+            <p>
+              ${escapeHtml(branch.phone || "")}
+            </p>
+
+          </div>
+
+          <div>
+
+            <span class="badge">
+              ${escapeHtml(group)}
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn btn-danger"
+            onclick="deleteBranch('${branch.id}')"
+          >
+            حذف
+          </button>
+
+          ${
+            branch.maps_url
+            ? `
+            <button
+              class="btn btn-dark"
+              onclick="window.open('${escapeHtml(branch.maps_url)}','_blank')"
+            >
+              📍 الخريطة
+            </button>
+            `
+            : ""
+          }
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function deleteBranch(id){
+
+  if(!confirm("هل أنت متأكد من حذف هذا الفرع؟")) return;
+
+
+  const {error} =
+    await supabaseClient
+    .from("branches")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  await loadAll();
+
+}
+
+
+/* =========================
+   SELECTS
+========================= */
+
+function updateBranchSelects(){
+
+  const selects = [
+
+    "categoryBranch",
+    "itemBranch",
+    "offerBranch"
+
+  ];
+
+
+  selects.forEach(id=>{
+
+    const select =
+      document.getElementById(id);
+
+    if(!select) return;
+
+
+    select.innerHTML =
+      '<option value="">اختر الفرع</option>' +
+
+      branches
+      .map(branch=>
+        `<option value="${branch.id}">
+          ${escapeHtml(branch.name)}
+        </option>`
+      )
+      .join("");
+
+  });
+
+
+  updateItemCategories();
+
+}
+
+
+function updateItemCategories(){
+
+  const branchId =
+    document.getElementById("itemBranch").value;
+
+  const select =
+    document.getElementById("itemCategory");
+
+
+  const filtered =
+    categories.filter(
+      x=>x.branch_id === branchId
+    );
+
+
+  select.innerHTML =
+    '<option value="">اختر القسم</option>' +
+
+    filtered
+    .map(category=>
+      `<option value="${category.id}">
+        ${escapeHtml(category.name)}
+      </option>`
+    )
+    .join("");
+
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+async function addCategory(){
+
+  const branchId =
+    document.getElementById("categoryBranch").value;
+
+  const name =
+    document.getElementById("categoryName")
+    .value.trim();
+
+
+  if(!branchId || !name){
+
+    showMessage(
+      "categoryMessage",
+      "اختر الفرع واكتب اسم القسم",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const payload = {
+
+    branch_id:branchId,
+
+    name,
+
+    description:
+      document.getElementById("categoryDescription").value.trim(),
+
+    image_url:
+      document.getElementById("categoryImage").value.trim(),
+
+    sort_order:
+      Number(document.getElementById("categoryOrder").value) || 0,
+
+    is_active:true
+
+  };
+
+
+  const {error} =
+    await supabaseClient
+    .from("categories")
+    .insert(payload);
+
+
+  if(error){
+
+    showMessage(
+      "categoryMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "categoryMessage",
+    "تمت إضافة القسم ✓"
+  );
+
+
+  clearCategoryForm();
+
+  await loadAll();
+
+}
+
+
+function clearCategoryForm(){
+
+  document
+  .getElementById("categoryName")
+  .value="";
+
+  document
+  .getElementById("categoryDescription")
+  .value="";
+
+  document
+  .getElementById("categoryImage")
+  .value="";
+
+}
+
+
+function renderCategories(){
+
+  const list =
+    document.getElementById("categoriesList");
+
+
+  if(!categories.length){
+
+    list.innerHTML =
+      '<div class="empty">لا توجد أقسام</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    categories.map(category=>{
+
+      const branch =
+        branches.find(
+          x=>x.id === category.branch_id
+        );
+
+
+      return `
+
+      <div class="item">
+
+        <div class="item-top">
+
+          <div>
+
+            <h3>
+              ${escapeHtml(category.name)}
+            </h3>
+
+            <p>
+              الفرع:
+              ${escapeHtml(branch?.name || "غير معروف")}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn btn-danger"
+            onclick="deleteCategory('${category.id}')"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function deleteCategory(id){
+
+  if(!confirm("حذف القسم؟")) return;
+
+
+  const {error} =
+    await supabaseClient
+    .from("categories")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  await loadAll();
+
+}
+
+
+/* =========================
+   MENU ITEMS
+========================= */
+
+async function addMenuItem(){
+
+  const branchId =
+    document.getElementById("itemBranch").value;
+
+  const categoryId =
+    document.getElementById("itemCategory").value;
+
+  const name =
+    document.getElementById("itemName")
+    .value.trim();
+
+
+  if(!branchId || !categoryId || !name){
+
+    showMessage(
+      "itemMessage",
+      "اختر الفرع والقسم واكتب اسم الصنف",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const payload = {
+
+    branch_id:branchId,
+
+    category_id:categoryId,
+
+    name,
+
+    description:
+      document.getElementById("itemDescription").value.trim(),
+
+    price:
+      Number(document.getElementById("itemPrice").value) || 0,
+
+    image_url:
+      document.getElementById("itemImage").value.trim(),
+
+    sort_order:
+      Number(document.getElementById("itemOrder").value) || 0,
+
+    is_available:true
+
+  };
+
+
+  const {error} =
+    await supabaseClient
+    .from("menu_items")
+    .insert(payload);
+
+
+  if(error){
+
+    showMessage(
+      "itemMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "itemMessage",
+    "تمت إضافة الصنف ✓"
+  );
+
+
+  clearItemForm();
+
+  await loadAll();
+
+}
+
+
+function clearItemForm(){
+
+  [
+    "itemName",
+    "itemPrice",
+    "itemDescription",
+    "itemImage"
+  ]
+  .forEach(id=>{
+    document.getElementById(id).value="";
+  });
+
+}
+
+
+function renderItems(){
+
+  const list =
+    document.getElementById("itemsList");
+
+
+  if(!menuItems.length){
+
+    list.innerHTML =
+      '<div class="empty">لا توجد أصناف</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    menuItems.map(item=>{
+
+      const branch =
+        branches.find(
+          x=>x.id === item.branch_id
+        );
+
+      const category =
+        categories.find(
+          x=>x.id === item.category_id
+        );
+
+
+      return `
+
+      <div class="item">
+
+        <div class="item-top">
+
+          <div>
+
+            <h3>
+              ${escapeHtml(item.name)}
+            </h3>
+
+            <p>
+              ${escapeHtml(branch?.name || "")}
+              — 
+              ${escapeHtml(category?.name || "")}
+            </p>
+
+            <p>
+              السعر:
+              ${Number(item.price || 0).toFixed(2)}
+            </p>
+
+          </div>
+
+          <span class="badge ${
+            item.is_available
+            ? "active"
+            : ""
+          }">
+            ${
+              item.is_available
+              ? "متوفر"
+              : "غير متوفر"
+            }
+          </span>
+
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn btn-danger"
+            onclick="deleteItem('${item.id}')"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function deleteItem(id){
+
+  if(!confirm("حذف الصنف؟")) return;
+
+
+  const {error} =
+    await supabaseClient
+    .from("menu_items")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  await loadAll();
+
+}
+
+
+/* =========================
+   OFFERS
+========================= */
+
+async function addOffer(){
+
+  const branchId =
+    document.getElementById("offerBranch").value;
+
+  const title =
+    document.getElementById("offerTitle")
+    .value.trim();
+
+
+  if(!branchId || !title){
+
+    showMessage(
+      "offerMessage",
+      "اختر الفرع واكتب اسم العرض",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const payload = {
+
+    branch_id:branchId,
+
+    title,
+
+    description:
+      document.getElementById("offerDescription").value.trim(),
+
+    image_url:
+      document.getElementById("offerImage").value.trim(),
+
+    price:
+      Number(document.getElementById("offerPrice").value) || 0,
+
+    is_active:true,
+
+    sort_order:
+      Number(document.getElementById("offerOrder").value) || 0
+
+  };
+
+
+  const {error} =
+    await supabaseClient
+    .from("offers")
+    .insert(payload);
+
+
+  if(error){
+
+    showMessage(
+      "offerMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "offerMessage",
+    "تمت إضافة العرض ✓"
+  );
+
+
+  clearOfferForm();
+
+  await loadAll();
+
+}
+
+
+function clearOfferForm(){
+
+  [
+    "offerTitle",
+    "offerDescription",
+    "offerPrice",
+    "offerImage"
+  ]
+  .forEach(id=>{
+    document.getElementById(id).value="";
+  });
+
+}
+
+
+function renderOffers(){
+
+  const list =
+    document.getElementById("offersList");
+
+
+  if(!offers.length){
+
+    list.innerHTML =
+      '<div class="empty">لا توجد عروض</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    offers.map(offer=>{
+
+      const branch =
+        branches.find(
+          x=>x.id === offer.branch_id
+        );
+
+
+      return `
+
+      <div class="item">
+
+        <div class="item-top">
+
+          <div>
+
+            <h3>
+              ${escapeHtml(offer.title)}
+            </h3>
+
+            <p>
+              الفرع:
+              ${escapeHtml(branch?.name || "")}
+            </p>
+
+            <p>
+              السعر:
+              ${Number(offer.price || 0).toFixed(2)}
+            </p>
+
+          </div>
+
+          <span class="badge ${
+            offer.is_active ? "active" : ""
+          }">
+
+            ${
+              offer.is_active
+              ? "فعال"
+              : "غير فعال"
+            }
+
+          </span>
+
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn btn-danger"
+            onclick="deleteOffer('${offer.id}')"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function deleteOffer(id){
+
+  if(!confirm("حذف العرض؟")) return;
+
+
+  const {error} =
+    await supabaseClient
+    .from("offers")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  await loadAll();
+
+}
+
+
+/* =========================
+   INTRO MEDIA
+========================= */
+
+async function addIntro(){
+
+  const image =
+    document.getElementById("introImage")
+    .value.trim();
+
+
+  if(!image){
+
+    showMessage(
+      "introMessage",
+      "ضع رابط الصورة",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const payload = {
+
+    image_url:image,
+
+    title:
+      document.getElementById("introTitle").value.trim(),
+
+    sort_order:
+      Number(document.getElementById("introOrder").value) || 0,
+
+    is_active:true
+
+  };
+
+
+  const {error} =
+    await supabaseClient
+    .from("intro_media")
+    .insert(payload);
+
+
+  if(error){
+
+    showMessage(
+      "introMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    "introMessage",
+    "تمت إضافة الصورة ✓"
+  );
+
+
+  document.getElementById("introImage").value="";
+
+  document.getElementById("introTitle").value="";
+
+  await loadAll();
+
+}
+
+
+function renderIntro(){
+
+  const list =
+    document.getElementById("introList");
+
+
+  if(!introMedia.length){
+
+    list.innerHTML =
+      '<div class="empty">لا توجد صور</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    introMedia.map(media=>`
+
+      <div class="item">
+
+        <div class="item-top">
+
+          <div>
+
+            <h3>
+              ${escapeHtml(media.title || "صورة")}
+            </h3>
+
+            <p>
+              ${escapeHtml(media.image_url)}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn btn-danger"
+            onclick="deleteIntro('${media.id}')"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+async function deleteIntro(id){
+
+  if(!confirm("حذف الصورة؟")) return;
+
+
+  const {error} =
+    await supabaseClient
+    .from("intro_media")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+
+  }
+
+
+  await loadAll();
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+async function saveSettings(){
+
+  const name =
+    document.getElementById("settingName")
+    .value.trim();
+
+  const logo =
+    document.getElementById("settingLogo")
+    .value.trim();
+
+
+  const {data} =
+    await supabaseClient
+    .from("restaurant_settings")
+    .select("id")
+    .limit(1);
+
+
+  let error;
+
+
+  if(data && data.length){
+
+    const result =
+      await supabaseClient
+      .from("restaurant_settings")
+      .update({
+        name,
+        logo_url:logo,
+        updated_at:new Date().toISOString()
+      })
+      .eq("id",data[0].id);
+
+    error = result.error;
+
+  }else{
+
+    const result =
+      await supabaseClient
+      .from("restaurant_settings")
+      .insert({
+        name,
+        logo_url:logo,
+        intro_enabled:true
+      });
+
+    error = result.error;
+
+  }
+
+
+  if(error){
+
+    showMessage(
+      "settingsMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(logo){
+
+    document
+    .getElementById("restaurantLogo")
+    .src=logo;
+
+  }
+
+
+  showMessage(
+    "settingsMessage",
+    "تم حفظ الإعدادات ✓"
+  );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadAll();
+
+</script>
+
+</body>
+</html>

@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#090909">
+
   <title>The Food Master | المنيو</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
     * {
@@ -17,211 +27,274 @@
     }
 
     :root {
-      --bg: #0b0b0b;
+      --bg: #090909;
       --card: #151515;
       --card2: #1d1d1d;
-      --text: #ffffff;
-      --muted: #a8a8a8;
-      --accent: #d6a84f;
-      --accent2: #f1c86b;
+      --text: #fff;
+      --muted: #aaa;
+      --gold: #d6a84f;
+      --gold2: #f1c86b;
       --border: rgba(255,255,255,.09);
     }
 
+    html {
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: "Cairo", sans-serif;
+      font-family: "Cairo", Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    input {
+      font-family: inherit;
     }
 
     button {
-      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
     }
 
     .hidden {
       display: none !important;
     }
 
-    /* =========================
-       INTRO
-    ========================== */
+    /* =====================================================
+       INTRO - FAST
+    ===================================================== */
 
     #intro {
       position: fixed;
       inset: 0;
-      z-index: 9999;
-      overflow: hidden;
-      background: #050505;
+      z-index: 99999;
+      background: #080808;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .intro-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: .32;
-      transform: scale(1.08);
-      animation: introZoom 4s ease forwards;
-    }
-
-    .intro-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to bottom,
-          rgba(0,0,0,.55),
-          rgba(0,0,0,.78));
+      transition: opacity .18s ease;
     }
 
     .intro-content {
-      position: relative;
-      z-index: 2;
       text-align: center;
-      padding: 30px;
-      animation: introAppear 1.2s ease forwards;
+      padding: 20px;
+      animation: introIn .22s ease-out;
     }
 
     .intro-logo {
-      width: 130px;
-      height: 130px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid rgba(255,255,255,.5);
-      box-shadow: 0 0 50px rgba(214,168,79,.25);
-      margin-bottom: 24px;
-      background: #171717;
+      border: 2px solid var(--gold);
+      background: #151515;
+      display: block;
+      margin: 0 auto 15px;
     }
 
     .intro-title {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 800;
-      margin-bottom: 8px;
+      line-height: 1.3;
     }
 
     .intro-subtitle {
-      color: var(--muted);
+      color: #aaa;
       font-size: 14px;
+      margin-top: 7px;
     }
 
     .intro-line {
-      width: 55px;
+      width: 42px;
       height: 2px;
-      background: var(--accent);
-      margin: 22px auto;
-      border-radius: 10px;
+      background: var(--gold);
+      margin: 13px auto;
+      border-radius: 20px;
     }
 
-    @keyframes introAppear {
+    @keyframes introIn {
       from {
         opacity: 0;
-        transform: translateY(25px) scale(.95);
+        transform: scale(.98);
       }
+
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes introZoom {
-      from {
-        transform: scale(1.08);
-      }
-      to {
         transform: scale(1);
       }
     }
 
-    /* =========================
-       MAIN
-    ========================== */
+    /* =====================================================
+       PAGE
+    ===================================================== */
 
     .page {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       margin: auto;
-      padding: 20px 16px 50px;
+      padding: 16px 15px 60px;
+    }
+
+    /* =====================================================
+       BRAND
+    ===================================================== */
+
+    .brand-header {
+      text-align: center;
+      padding: 8px 0 20px;
     }
 
     .top-logo {
-      width: 76px;
-      height: 76px;
+      width: 74px;
+      height: 74px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--accent);
-      display: block;
-      margin: 10px auto 15px;
+      border: 2px solid var(--gold);
       background: #151515;
+      display: block;
+      margin: 0 auto 12px;
     }
 
-    .brand {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .brand h1 {
-      font-size: 26px;
+    .brand-header h1 {
+      font-size: 27px;
       font-weight: 800;
     }
 
-    .brand p {
+    .brand-header p {
       color: var(--muted);
       font-size: 13px;
       margin-top: 4px;
     }
 
+    /* =====================================================
+       TITLES
+    ===================================================== */
+
     .section-title {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin: 25px 0 15px;
+      gap: 10px;
+      margin: 12px 0 14px;
     }
 
     .section-title h2 {
       font-size: 20px;
+      font-weight: 800;
+      white-space: nowrap;
     }
 
-    .section-title span {
-      width: 45px;
-      height: 2px;
-      background: var(--accent);
+    .section-line {
+      height: 1px;
+      flex: 1;
+      background: var(--border);
+    }
+
+    /* =====================================================
+       RESTAURANT CHOICES
+    ===================================================== */
+
+    .restaurant-grid {
+      display: grid;
+      gap: 13px;
+    }
+
+    .restaurant-card {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #1b1b1b, #111);
       border-radius: 20px;
+      padding: 20px 17px;
+      color: white;
+      text-align: right;
+      cursor: pointer;
+      transition: transform .12s ease, border-color .12s ease;
     }
 
-    /* =========================
+    .restaurant-card:active {
+      transform: scale(.985);
+    }
+
+    .restaurant-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(214,168,79,.12);
+      border: 1px solid rgba(214,168,79,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .restaurant-name {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .restaurant-description {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .restaurant-arrow {
+      color: var(--gold2);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 11px;
+    }
+
+    /* =====================================================
+       BACK
+    ===================================================== */
+
+    .back-button {
+      border: 1px solid var(--border);
+      background: #171717;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 11px;
+      cursor: pointer;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    /* =====================================================
        BRANCHES
-    ========================== */
+    ===================================================== */
 
     .branches {
       display: grid;
-      gap: 14px;
+      gap: 13px;
     }
 
     .branch {
-      background: linear-gradient(145deg, #191919, #111111);
+      background: linear-gradient(145deg, #181818, #111);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 19px;
       overflow: hidden;
-      transition: .25s ease;
-    }
-
-    .branch:hover {
-      transform: translateY(-2px);
-      border-color: rgba(214,168,79,.35);
     }
 
     .branch-image {
       width: 100%;
-      height: 170px;
+      height: 155px;
       object-fit: cover;
       display: block;
-      background: #202020;
+      background: #191919;
     }
 
     .branch-body {
-      padding: 16px;
+      padding: 15px;
     }
 
     .branch-name {
@@ -232,16 +305,17 @@
 
     .branch-info {
       display: grid;
-      gap: 7px;
+      gap: 6px;
       color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 15px;
+      font-size: 12px;
+      line-height: 1.7;
+      margin-bottom: 13px;
     }
 
     .branch-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 9px;
+      gap: 8px;
     }
 
     .action {
@@ -249,55 +323,141 @@
       border: 1px solid var(--border);
       background: #202020;
       color: white;
-      border-radius: 12px;
-      padding: 10px;
+      border-radius: 11px;
+      padding: 10px 7px;
       text-align: center;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .action.primary {
-      background: var(--accent);
+      background: var(--gold);
+      border-color: var(--gold);
       color: #111;
-      border-color: var(--accent);
     }
 
-    /* =========================
-       MENU
-    ========================== */
-
-    .back-button {
-      border: 1px solid var(--border);
-      background: #171717;
-      color: white;
-      padding: 9px 15px;
-      border-radius: 12px;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
+    /* =====================================================
+       MENU HEADER
+    ===================================================== */
 
     .menu-header {
       text-align: center;
-      margin-bottom: 25px;
+      padding: 5px 0 15px;
     }
 
     .menu-header h2 {
-      font-size: 26px;
-      margin-bottom: 4px;
+      font-size: 25px;
+      font-weight: 800;
     }
 
     .menu-header p {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
+      margin-top: 4px;
     }
+
+    .menu-actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .menu-action {
+      border: 1px solid var(--border);
+      background: #171717;
+      color: white;
+      padding: 9px 13px;
+      border-radius: 11px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .menu-action.gold {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #111;
+    }
+
+    /* =====================================================
+       OFFERS
+    ===================================================== */
+
+    .offers-section {
+      margin-bottom: 18px;
+    }
+
+    .offers-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+
+    .offers {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 3px;
+    }
+
+    .offers::-webkit-scrollbar {
+      display: none;
+    }
+
+    .offer {
+      min-width: 260px;
+      background: #171717;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .offer-image {
+      width: 100%;
+      height: 125px;
+      object-fit: cover;
+      display: block;
+      background: #202020;
+    }
+
+    .offer-body {
+      padding: 11px;
+    }
+
+    .offer-title {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .offer-description {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    .offer-price {
+      color: var(--gold2);
+      font-weight: 800;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    /* =====================================================
+       CATEGORIES
+    ===================================================== */
 
     .categories {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding: 3px 1px 10px;
       scrollbar-width: none;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .categories::-webkit-scrollbar {
@@ -309,80 +469,191 @@
       border: 1px solid var(--border);
       background: #161616;
       color: #ddd;
-      padding: 9px 15px;
+      padding: 8px 14px;
       border-radius: 50px;
       cursor: pointer;
+      font-size: 12px;
     }
 
     .category-button.active {
-      background: var(--accent);
+      background: var(--gold);
+      border-color: var(--gold);
       color: #111;
-      border-color: var(--accent);
-      font-weight: 700;
+      font-weight: 800;
     }
+
+    /* =====================================================
+       ITEMS
+    ===================================================== */
 
     .items {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
     .item {
       display: grid;
-      grid-template-columns: 105px 1fr;
-      gap: 13px;
+      grid-template-columns: 92px 1fr;
+      gap: 11px;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 17px;
-      padding: 10px;
+      border-radius: 16px;
+      padding: 9px;
+      min-height: 110px;
     }
 
     .item-image {
-      width: 105px;
-      height: 105px;
+      width: 92px;
+      height: 92px;
       object-fit: cover;
-      border-radius: 13px;
-      background: #222;
+      border-radius: 12px;
+      background: #202020;
+      display: block;
     }
 
     .item-info {
-      padding: 3px 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      min-width: 0;
     }
 
     .item-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
-      margin-bottom: 5px;
+      line-height: 1.5;
     }
 
     .item-description {
       color: var(--muted);
-      font-size: 11px;
-      line-height: 1.7;
-      margin-bottom: 8px;
+      font-size: 10px;
+      line-height: 1.65;
+      margin-top: 3px;
     }
 
     .item-price {
-      color: var(--accent2);
-      font-size: 16px;
+      color: var(--gold2);
+      font-size: 15px;
       font-weight: 800;
+      margin-top: 6px;
     }
+
+    /* =====================================================
+       LOADING
+    ===================================================== */
 
     .loading {
       text-align: center;
       color: var(--muted);
-      padding: 40px 10px;
+      padding: 35px 10px;
+      font-size: 13px;
     }
 
     .empty {
       text-align: center;
-      padding: 50px 15px;
       color: var(--muted);
+      padding: 40px 15px;
+      font-size: 13px;
     }
 
+    .error-box {
+      background: rgba(217,83,79,.1);
+      border: 1px solid rgba(217,83,79,.25);
+      color: #ffaaa6;
+      padding: 13px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       QR MODAL
+    ===================================================== */
+
+    .qr-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: rgba(0,0,0,.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .qr-box {
+      width: 100%;
+      max-width: 360px;
+      background: #171717;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .qr-box h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .qr-box p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    #qrcode {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 15px;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #qrcode img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .qr-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .qr-button {
+      border: 1px solid var(--border);
+      background: #222;
+      color: white;
+      padding: 10px;
+      border-radius: 11px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .qr-button.gold {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #111;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
     @media (min-width: 650px) {
+
+      .restaurant-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .branches {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -390,78 +661,446 @@
       .items {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .branch-image {
+        height: 170px;
+      }
+
     }
+
+    @media (min-width: 900px) {
+
+      .restaurant-card {
+        padding: 25px;
+      }
+
+      .branch-image {
+        height: 190px;
+      }
+
+    }
+
   </style>
 </head>
 
 <body>
 
-  <!-- شاشة البداية -->
+  <!-- =====================================================
+       FAST INTRO
+  ===================================================== -->
+
   <div id="intro">
-    <div class="intro-bg" id="introBg"></div>
-    <div class="intro-overlay"></div>
 
     <div class="intro-content">
-      <img id="introLogo" class="intro-logo" alt="شعار المطعم">
-      <div class="intro-title" id="introTitle">The Food Master</div>
+
+      <img
+        id="introLogo"
+        class="intro-logo"
+        alt="The Food Master"
+        width="100"
+        height="100"
+      >
+
+      <div
+        id="introTitle"
+        class="intro-title"
+      >
+        The Food Master
+      </div>
+
       <div class="intro-line"></div>
-      <div class="intro-subtitle">أهلاً وسهلاً بكم</div>
+
+      <div class="intro-subtitle">
+        أهلاً وسهلاً بكم
+      </div>
+
     </div>
+
   </div>
 
-  <!-- الصفحة الرئيسية -->
+
+  <!-- =====================================================
+       MAIN
+  ===================================================== -->
+
   <main class="page">
+
+    <!-- ===================================================
+         HOME
+    ==================================================== -->
 
     <section id="homePage">
 
-      <img id="topLogo" class="top-logo" alt="شعار المطعم">
+      <header class="brand-header">
 
-      <div class="brand">
-        <h1 id="restaurantName">The Food Master</h1>
-        <p>اختر الفرع لعرض المنيو</p>
-      </div>
+        <img
+          id="topLogo"
+          class="top-logo"
+          alt="The Food Master"
+          width="74"
+          height="74"
+        >
+
+        <h1 id="restaurantName">
+          The Food Master
+        </h1>
+
+        <p>
+          اختر المطعم للمتابعة
+        </p>
+
+      </header>
+
 
       <div class="section-title">
-        <h2>فروعنا</h2>
-        <span></span>
+
+        <h2>
+          المطاعم
+        </h2>
+
+        <div class="section-line"></div>
+
       </div>
 
-      <div id="branches" class="branches">
-        <div class="loading">جاري تحميل الفروع...</div>
+
+      <div class="restaurant-grid">
+
+        <button
+          class="restaurant-card"
+          type="button"
+          onclick="openZarb()"
+        >
+
+          <div class="restaurant-icon">
+            🍖
+          </div>
+
+          <div class="restaurant-name">
+            مطاعم أصل الزرب
+          </div>
+
+          <div class="restaurant-description">
+            اختر فرع أصل الزرب لعرض المنيو
+            والموقع ورقم الهاتف والعروض الخاصة بالفرع.
+          </div>
+
+          <div class="restaurant-arrow">
+            عرض الفروع ←
+          </div>
+
+        </button>
+
+
+        <button
+          class="restaurant-card"
+          type="button"
+          onclick="openFoodMaster()"
+        >
+
+          <div class="restaurant-icon">
+            🍽️
+          </div>
+
+          <div class="restaurant-name">
+            The Food Master – مرج الحمام
+          </div>
+
+          <div class="restaurant-description">
+            أصل الزرب + Meat Point + Aviator
+            داخل Food Court بمنيو واحد.
+          </div>
+
+          <div class="restaurant-arrow">
+            عرض المنيو ←
+          </div>
+
+        </button>
+
       </div>
 
     </section>
 
-    <!-- صفحة المنيو -->
-    <section id="menuPage" class="hidden">
 
-      <button class="back-button" onclick="showHome()">
-        ← العودة للفروع
+    <!-- ===================================================
+         ZARB BRANCHES
+    ==================================================== -->
+
+    <section
+      id="zarbPage"
+      class="hidden"
+    >
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="showHome()"
+      >
+        → العودة للمطاعم
+      </button>
+
+      <div class="section-title">
+
+        <h2>
+          فروع مطاعم أصل الزرب
+        </h2>
+
+        <div class="section-line"></div>
+
+      </div>
+
+      <div
+        id="branches"
+        class="branches"
+      >
+
+        <div class="loading">
+          جاري تحميل الفروع...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         FOOD MASTER
+    ==================================================== -->
+
+    <section
+      id="foodMasterPage"
+      class="hidden"
+    >
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="showHome()"
+      >
+        → العودة للمطاعم
       </button>
 
       <div class="menu-header">
-        <h2 id="menuBranchName"></h2>
-        <p>قائمة الطعام</p>
+
+        <h2>
+          The Food Master
+        </h2>
+
+        <p>
+          مرج الحمام · Food Court
+        </p>
+
       </div>
 
-      <div id="categories" class="categories"></div>
+      <div class="menu-actions">
 
-      <div id="items" class="items"></div>
+        <button
+          class="menu-action gold"
+          type="button"
+          onclick="generateFoodMasterQR()"
+        >
+          📱 QR للمنيو
+        </button>
+
+      </div>
+
+      <div
+        id="foodMasterOffers"
+        class="offers-section hidden"
+      >
+
+        <div class="offers-title">
+          العروض
+        </div>
+
+        <div
+          id="foodMasterOffersList"
+          class="offers"
+        ></div>
+
+      </div>
+
+      <div
+        id="foodMasterCategories"
+        class="categories"
+      ></div>
+
+      <div
+        id="foodMasterItems"
+        class="items"
+      >
+
+        <div class="loading">
+          جاري تحميل المنيو...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BRANCH MENU
+    ==================================================== -->
+
+    <section
+      id="menuPage"
+      class="hidden"
+    >
+
+      <button
+        class="back-button"
+        type="button"
+        onclick="showZarb()"
+      >
+        → العودة للفروع
+      </button>
+
+      <div class="menu-header">
+
+        <h2 id="menuBranchName">
+          المنيو
+        </h2>
+
+        <p id="menuBranchInfo">
+          قائمة الطعام
+        </p>
+
+      </div>
+
+      <div class="menu-actions">
+
+        <a
+          id="branchPhoneButton"
+          class="menu-action"
+          href="#"
+        >
+          ☎️ اتصال
+        </a>
+
+        <a
+          id="branchMapButton"
+          class="menu-action"
+          href="#"
+          target="_blank"
+          rel="noopener"
+        >
+          📍 الموقع
+        </a>
+
+        <button
+          class="menu-action gold"
+          type="button"
+          onclick="generateCurrentBranchQR()"
+        >
+          📱 QR للمنيو
+        </button>
+
+      </div>
+
+
+      <div
+        id="branchOffers"
+        class="offers-section hidden"
+      >
+
+        <div class="offers-title">
+          العروض
+        </div>
+
+        <div
+          id="branchOffersList"
+          class="offers"
+        ></div>
+
+      </div>
+
+
+      <div
+        id="categories"
+        class="categories"
+      ></div>
+
+
+      <div
+        id="items"
+        class="items"
+      >
+
+        <div class="loading">
+          جاري تحميل المنيو...
+        </div>
+
+      </div>
 
     </section>
 
   </main>
 
-  <!-- Supabase -->
+
+  <!-- =====================================================
+       QR MODAL
+  ===================================================== -->
+
+  <div
+    id="qrModal"
+    class="qr-overlay hidden"
+  >
+
+    <div class="qr-box">
+
+      <h3 id="qrTitle">
+        QR Code
+      </h3>
+
+      <p>
+        امسح الكود لفتح المنيو مباشرة.
+      </p>
+
+      <div id="qrcode"></div>
+
+      <div class="qr-buttons">
+
+        <button
+          class="qr-button"
+          type="button"
+          onclick="closeQR()"
+        >
+          إغلاق
+        </button>
+
+        <button
+          class="qr-button gold"
+          type="button"
+          onclick="downloadQR()"
+        >
+          حفظ QR
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SUPABASE
+  ===================================================== -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- QR -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+
   <script>
-    /* ==========================================
+
+    /* =====================================================
        SUPABASE
-    ========================================== */
+    ===================================================== */
 
     const SUPABASE_URL =
-      "https://vgqtfataqtqalwombdcz.supabase.co";
+      "https://vgqtfataqtqalwomdbcz.supabase.co";
 
     const SUPABASE_KEY =
       "sb_publishable_p2Cu603AG7YVMiIR5DAvEA_AyyjBUAE";
@@ -469,162 +1108,411 @@
     const supabaseClient =
       window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_KEY
+        SUPABASE_KEY,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false
+          }
+        }
       );
 
-    /* ==========================================
-       DEMO DATA
-       ستظهر مؤقتًا إذا لم توجد فروع بعد
-    ========================================== */
 
-    const demoBranches = [
-      {
-        id: "demo-1",
-        name: "الفرع الرئيسي",
-        phone: "0790000000",
-        address: "الموقع الرئيسي",
-        maps_url: "https://maps.google.com",
-        image_url: ""
-      },
-      {
-        id: "demo-2",
-        name: "فرع جديد",
-        phone: "0790000000",
-        address: "موقع الفرع",
-        maps_url: "https://maps.google.com",
-        image_url: ""
-      }
-    ];
+    /* =====================================================
+       STATE
+    ===================================================== */
 
-    const demoCategories = [
-      {
-        id: "demo-cat-1",
-        name: "الوجبات"
-      },
-      {
-        id: "demo-cat-2",
-        name: "المشروبات"
-      }
-    ];
+    let allBranches = [];
 
-    const demoItems = [
-      {
-        id: "demo-item-1",
-        category_id: "demo-cat-1",
-        name: "وجبة الزرب",
-        description: "وجبة لذيذة ومحضرة على الطريقة الأصلية",
-        price: 4.00,
-        image_url: ""
-      },
-      {
-        id: "demo-item-2",
-        category_id: "demo-cat-2",
-        name: "مشروب غازي",
-        description: "مشروب بارد",
-        price: 0.75,
-        image_url: ""
-      }
-    ];
+    let currentBranch = null;
 
-    /* ==========================================
+    let foodMasterBranch = null;
+
+    let currentQRUrl = "";
+
+
+    /* =====================================================
        HELPERS
-    ========================================== */
+    ===================================================== */
+
+    function safe(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
+      }
+
+      return String(value);
+
+    }
+
+
+    function escapeHTML(value) {
+
+      return safe(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
 
     function placeholderImage(text) {
-      return "https://placehold.co/600x400/191919/d6a84f?text=" +
-        encodeURIComponent(text);
+
+      return (
+        "https://placehold.co/700x450/191919/d6a84f?text=" +
+        encodeURIComponent(
+          text || "The Food Master"
+        )
+      );
+
     }
+
 
     function formatPrice(price) {
-      return Number(price).toFixed(2) + " د.أ";
+
+      if (
+        price === null ||
+        price === undefined ||
+        price === ""
+      ) {
+        return "";
+      }
+
+      return (
+        Number(price).toFixed(2) +
+        " د.أ"
+      );
+
     }
 
-    /* ==========================================
-       LOAD RESTAURANT
-    ========================================== */
 
-    async function loadRestaurant() {
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
 
-      const { data, error } =
+    function hideAllPages() {
+
+      document
+        .getElementById("homePage")
+        .classList.add("hidden");
+
+      document
+        .getElementById("zarbPage")
+        .classList.add("hidden");
+
+      document
+        .getElementById("foodMasterPage")
+        .classList.add("hidden");
+
+      document
+        .getElementById("menuPage")
+        .classList.add("hidden");
+
+    }
+
+
+    function showHome() {
+
+      hideAllPages();
+
+      document
+        .getElementById("homePage")
+        .classList.remove("hidden");
+
+      history.replaceState(
+        null,
+        "",
+        window.location.pathname
+      );
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function showZarb() {
+
+      hideAllPages();
+
+      document
+        .getElementById("zarbPage")
+        .classList.remove("hidden");
+
+      history.replaceState(
+        null,
+        "",
+        window.location.pathname + "#zarb"
+      );
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function openZarb() {
+
+      showZarb();
+
+      renderBranches();
+
+    }
+
+
+    async function openFoodMaster(updateURL = true) {
+
+      hideAllPages();
+
+      document
+        .getElementById("foodMasterPage")
+        .classList.remove("hidden");
+
+      window.scrollTo(0, 0);
+
+      if (updateURL) {
+
+        history.replaceState(
+          null,
+          "",
+          window.location.pathname +
+          "#foodmaster"
+        );
+
+      }
+
+      if (!foodMasterBranch) {
+
+        foodMasterBranch =
+          findFoodMasterBranch();
+
+      }
+
+      if (!foodMasterBranch) {
+
+        document
+          .getElementById("foodMasterItems")
+          .innerHTML = `
+            <div class="error-box">
+              لم يتم العثور على فرع
+              The Food Master – مرج الحمام
+              في قاعدة البيانات.
+              <br><br>
+              تأكد من أن فرع مرج الحمام مضاف من لوحة الإدارة.
+            </div>
+          `;
+
+        return;
+
+      }
+
+      await loadBranchMenu(
+        foodMasterBranch,
+        "foodMaster"
+      );
+
+    }
+
+
+    /* =====================================================
+       RESTAURANT SETTINGS
+    ===================================================== */
+
+    async function loadRestaurantSettings() {
+
+      const result =
         await supabaseClient
           .from("restaurant_settings")
           .select("*")
           .limit(1)
           .maybeSingle();
 
-      if (!error && data) {
-        document.getElementById("restaurantName").textContent =
-          data.name;
+      if (
+        result.error ||
+        !result.data
+      ) {
 
-        document.getElementById("introTitle").textContent =
-          data.name;
+        console.warn(
+          "Restaurant settings:",
+          result.error
+        );
+
+        return;
+
       }
 
-      /*
-        ضع رابط الشعار هنا مؤقتًا إذا أردت الاختبار.
-        لاحقًا سيصبح من لوحة التحكم.
-      */
+      const data = result.data;
 
-      const logo =
-        data?.logo_url ||
-        placeholderImage("LOGO");
+      const name =
+        data.name ||
+        "The Food Master";
 
-      document.getElementById("topLogo").src = logo;
-      document.getElementById("introLogo").src = logo;
+      document
+        .getElementById("restaurantName")
+        .textContent = name;
+
+      document
+        .getElementById("introTitle")
+        .textContent = name;
+
+      if (data.logo_url) {
+
+        document
+          .getElementById("topLogo")
+          .src = data.logo_url;
+
+        document
+          .getElementById("introLogo")
+          .src = data.logo_url;
+
+      } else {
+
+        const fallback =
+          placeholderImage("FM");
+
+        document
+          .getElementById("topLogo")
+          .src = fallback;
+
+        document
+          .getElementById("introLogo")
+          .src = fallback;
+
+      }
+
     }
 
-    /* ==========================================
-       INTRO
-    ========================================== */
 
-    async function loadIntro() {
-
-      const { data, error } =
-        await supabaseClient
-          .from("intro_media")
-          .select("*")
-          .eq("is_active", true)
-          .order("sort_order");
-
-      const firstImage =
-        (!error && data && data.length)
-          ? data[0].image_url
-          : placeholderImage("THE FOOD MASTER");
-
-      document.getElementById("introBg").style.backgroundImage =
-        `url("${firstImage}")`;
-
-      setTimeout(() => {
-        document.getElementById("intro").style.opacity = "0";
-        document.getElementById("intro").style.pointerEvents = "none";
-
-        setTimeout(() => {
-          document.getElementById("intro").remove();
-        }, 500);
-
-      }, 2800);
-    }
-
-    /* ==========================================
+    /* =====================================================
        LOAD BRANCHES
-    ========================================== */
+    ===================================================== */
 
-    async function loadBranches() {
+    async function loadBranchesData() {
 
-      const container =
-        document.getElementById("branches");
-
-      const { data, error } =
+      const result =
         await supabaseClient
           .from("branches")
           .select("*")
           .eq("is_active", true)
-          .order("sort_order");
+          .order("sort_order", {
+            ascending: true
+          });
 
-      let branches =
-        (!error && data && data.length)
-          ? data
-          : demoBranches;
+      if (result.error) {
+
+        console.error(
+          "Branches error:",
+          result.error
+        );
+
+        return;
+
+      }
+
+      allBranches =
+        result.data || [];
+
+      foodMasterBranch =
+        findFoodMasterBranch();
+
+    }
+
+
+    /* =====================================================
+       FIND FOOD MASTER
+    ===================================================== */
+
+    function branchSearchText(branch) {
+
+      return (
+        safe(branch.name) +
+        " " +
+        safe(branch.group_name) +
+        " " +
+        safe(branch.branch_type) +
+        " " +
+        safe(branch.address)
+      ).toLowerCase();
+
+    }
+
+
+    function isFoodMasterBranch(branch) {
+
+      const text =
+        branchSearchText(branch);
+
+      return (
+        text.includes("food master") ||
+        text.includes("فود ماستر") ||
+        text.includes("مرج الحمام") ||
+        text.includes("مرج الحمام")
+      );
+
+    }
+
+
+    function findFoodMasterBranch() {
+
+      return (
+        allBranches.find(
+          branch =>
+            isFoodMasterBranch(branch)
+        ) ||
+        null
+      );
+
+    }
+
+
+    function getZarbBranches() {
+
+      return allBranches.filter(
+        branch =>
+          !isFoodMasterBranch(branch)
+      );
+
+    }
+
+
+    /* =====================================================
+       RENDER BRANCHES
+    ===================================================== */
+
+    function renderBranches() {
+
+      const container =
+        document.getElementById("branches");
+
+      if (!allBranches.length) {
+
+        container.innerHTML = `
+          <div class="empty">
+            لا توجد فروع مضافة حاليًا.
+          </div>
+        `;
+
+        return;
+
+      }
+
+      const branches =
+        getZarbBranches();
+
+      if (!branches.length) {
+
+        container.innerHTML = `
+          <div class="empty">
+            لا توجد فروع أصل الزرب مضافة حاليًا.
+          </div>
+        `;
+
+        return;
+
+      }
 
       container.innerHTML = "";
 
@@ -632,56 +1520,83 @@
 
         const image =
           branch.image_url ||
-          placeholderImage(branch.name);
+          placeholderImage(
+            branch.name
+          );
 
         const phone =
-          branch.phone || "غير متوفر";
+          safe(branch.phone) ||
+          "غير متوفر";
 
         const address =
-          branch.address || "موقع الفرع";
+          safe(branch.address) ||
+          "العنوان غير متوفر";
 
         const maps =
-          branch.maps_url || "#";
+          safe(branch.maps_url);
 
-        const card = document.createElement("article");
+        const card =
+          document.createElement("article");
 
         card.className = "branch";
 
         card.innerHTML = `
+
           <img
             class="branch-image"
-            src="${image}"
-            alt="${branch.name}"
+            src="${escapeHTML(image)}"
+            alt="${escapeHTML(branch.name)}"
+            loading="lazy"
+            width="700"
+            height="350"
           >
 
           <div class="branch-body">
 
             <div class="branch-name">
-              ${branch.name}
+              ${escapeHTML(branch.name)}
             </div>
 
             <div class="branch-info">
-              <div>📍 ${address}</div>
-              <div>☎️ ${phone}</div>
+
+              <div>
+                📍 ${escapeHTML(address)}
+              </div>
+
+              <div>
+                ☎️ ${escapeHTML(phone)}
+              </div>
+
             </div>
 
             <div class="branch-actions">
 
-              <a
-                class="action"
-                href="${maps}"
-                target="_blank"
-              >
-                📍 الموقع
-              </a>
+              ${
+                maps
+                ? `
+                  <a
+                    class="action"
+                    href="${escapeHTML(maps)}"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    📍 الموقع
+                  </a>
+                `
+                : `
+                  <span class="action">
+                    📍 الموقع
+                  </span>
+                `
+              }
 
-              <a
+              <button
                 class="action primary"
-                href="#"
-                onclick="openMenu('${branch.id}', '${branch.name.replace(/'/g, "\\'")}'); return false;"
+                type="button"
+                onclick="openBranchMenu('${branch.id}')"
               >
-                🍽️ عرض المنيو
-              </a>
+                🍽️ المنيو
+              </button>
 
             </div>
 
@@ -689,274 +1604,919 @@
         `;
 
         container.appendChild(card);
+
       });
+
     }
 
-    /* ==========================================
-       OPEN MENU
-    ========================================== */
 
-    async function openMenu(branchId, branchName) {
+    /* =====================================================
+       OPEN BRANCH
+    ===================================================== */
 
-      document.getElementById("homePage")
-        .classList.add("hidden");
-
-      document.getElementById("menuPage")
-        .classList.remove("hidden");
-
-      document.getElementById("menuBranchName")
-        .textContent = branchName;
-
-      if (branchId.startsWith("demo-")) {
-
-        renderDemoMenu();
-
-        return;
-      }
-
-      const { data: categories } =
-        await supabaseClient
-          .from("categories")
-          .select("*")
-          .eq("branch_id", branchId)
-          .eq("is_active", true)
-          .order("sort_order");
-
-      renderCategories(
-        categories || [],
-        branchId
-      );
-    }
-
-    /* ==========================================
-       CATEGORIES
-    ========================================== */
-
-    async function renderCategories(
-      categories,
-      branchId
+    async function openBranchMenu(
+      branchId,
+      updateURL = true
     ) {
 
-      const container =
-        document.getElementById("categories");
+      const branch =
+        allBranches.find(
+          item =>
+            String(item.id) ===
+            String(branchId)
+        );
 
-      container.innerHTML = "";
+      if (!branch) {
+
+        showZarb();
+
+        return;
+
+      }
+
+      currentBranch = branch;
+
+      hideAllPages();
+
+      document
+        .getElementById("menuPage")
+        .classList.remove("hidden");
+
+      window.scrollTo(0, 0);
+
+      if (updateURL) {
+
+        history.replaceState(
+          null,
+          "",
+          window.location.pathname +
+          "#branch=" +
+          encodeURIComponent(branch.id)
+        );
+
+      }
+
+      document
+        .getElementById("menuBranchName")
+        .textContent =
+        branch.name || "المنيو";
+
+      document
+        .getElementById("menuBranchInfo")
+        .textContent =
+        "قائمة الطعام · " +
+        (
+          branch.address ||
+          "فرع مطاعم أصل الزرب"
+        );
+
+      const phoneButton =
+        document.getElementById(
+          "branchPhoneButton"
+        );
+
+      if (branch.phone) {
+
+        phoneButton.href =
+          "tel:" +
+          branch.phone;
+
+        phoneButton.classList.remove(
+          "hidden"
+        );
+
+      } else {
+
+        phoneButton.classList.add(
+          "hidden"
+        );
+
+      }
+
+      const mapButton =
+        document.getElementById(
+          "branchMapButton"
+        );
+
+      if (branch.maps_url) {
+
+        mapButton.href =
+          branch.maps_url;
+
+        mapButton.classList.remove(
+          "hidden"
+        );
+
+      } else {
+
+        mapButton.classList.add(
+          "hidden"
+        );
+
+      }
+
+      await loadBranchMenu(
+        branch,
+        "branch"
+      );
+
+    }
+
+
+    /* =====================================================
+       LOAD MENU
+    ===================================================== */
+
+    async function loadBranchMenu(
+      branch,
+      mode
+    ) {
+
+      const categoriesElement =
+        mode === "foodMaster"
+          ? document.getElementById(
+              "foodMasterCategories"
+            )
+          : document.getElementById(
+              "categories"
+            );
+
+      const itemsElement =
+        mode === "foodMaster"
+          ? document.getElementById(
+              "foodMasterItems"
+            )
+          : document.getElementById(
+              "items"
+            );
+
+      categoriesElement.innerHTML = "";
+
+      itemsElement.innerHTML =
+        `
+          <div class="loading">
+            جاري تحميل المنيو...
+          </div>
+        `;
+
+
+      /* -----------------------------------------
+         CATEGORIES + OFFERS IN PARALLEL
+      ----------------------------------------- */
+
+      const [
+        categoriesResult,
+        offersResult
+      ] = await Promise.all([
+
+        supabaseClient
+          .from("categories")
+          .select("*")
+          .eq("branch_id", branch.id)
+          .eq("is_active", true)
+          .order("sort_order", {
+            ascending: true
+          }),
+
+        supabaseClient
+          .from("offers")
+          .select("*")
+          .eq("branch_id", branch.id)
+          .eq("is_active", true)
+          .order("sort_order", {
+            ascending: true
+          })
+
+      ]);
+
+
+      const categories =
+        (
+          !categoriesResult.error &&
+          categoriesResult.data
+        )
+        ? categoriesResult.data
+        : [];
+
+
+      const offers =
+        (
+          !offersResult.error &&
+          offersResult.data
+        )
+        ? offersResult.data
+        : [];
+
+
+      renderOffers(
+        offers,
+        mode
+      );
+
 
       if (!categories.length) {
 
-        document.getElementById("items").innerHTML =
-          `<div class="empty">لا توجد أصناف حاليًا</div>`;
+        categoriesElement.innerHTML = "";
+
+        itemsElement.innerHTML =
+          `
+            <div class="empty">
+              لا توجد أقسام منيو لهذا الفرع حاليًا.
+            </div>
+          `;
 
         return;
+
       }
 
-      categories.forEach((category, index) => {
 
-        const button =
-          document.createElement("button");
+      categories.forEach(
+        (category, index) => {
 
-        button.className =
-          "category-button" +
-          (index === 0 ? " active" : "");
-
-        button.textContent =
-          category.name;
-
-        button.onclick = () => {
-
-          document
-            .querySelectorAll(".category-button")
-            .forEach(b =>
-              b.classList.remove("active")
+          const button =
+            document.createElement(
+              "button"
             );
 
-          button.classList.add("active");
+          button.type = "button";
 
-          loadItems(
-            category.id,
-            branchId
+          button.className =
+            "category-button" +
+            (
+              index === 0
+                ? " active"
+                : ""
+            );
+
+          button.textContent =
+            category.name;
+
+          button.onclick = () => {
+
+            categoriesElement
+              .querySelectorAll(
+                ".category-button"
+              )
+              .forEach(
+                item =>
+                  item.classList.remove(
+                    "active"
+                  )
+              );
+
+            button.classList.add(
+              "active"
+            );
+
+            loadItems(
+              category.id,
+              branch.id,
+              mode
+            );
+
+          };
+
+          categoriesElement.appendChild(
+            button
           );
-        };
 
-        container.appendChild(button);
-      });
+        }
+      );
+
 
       await loadItems(
         categories[0].id,
-        branchId
+        branch.id,
+        mode
       );
+
     }
 
-    /* ==========================================
+
+    /* =====================================================
+       OFFERS
+    ===================================================== */
+
+    function renderOffers(
+      offers,
+      mode
+    ) {
+
+      const section =
+        mode === "foodMaster"
+          ? document.getElementById(
+              "foodMasterOffers"
+            )
+          : document.getElementById(
+              "branchOffers"
+            );
+
+      const container =
+        mode === "foodMaster"
+          ? document.getElementById(
+              "foodMasterOffersList"
+            )
+          : document.getElementById(
+              "branchOffersList"
+            );
+
+
+      if (!offers.length) {
+
+        section.classList.add(
+          "hidden"
+        );
+
+        container.innerHTML = "";
+
+        return;
+
+      }
+
+
+      section.classList.remove(
+        "hidden"
+      );
+
+      container.innerHTML = "";
+
+
+      offers.forEach(offer => {
+
+        const image =
+          offer.image_url ||
+          placeholderImage(
+            offer.title
+          );
+
+        const card =
+          document.createElement(
+            "article"
+          );
+
+        card.className = "offer";
+
+        card.innerHTML = `
+
+          <img
+            class="offer-image"
+            src="${escapeHTML(image)}"
+            alt="${escapeHTML(offer.title)}"
+            loading="lazy"
+            width="500"
+            height="250"
+          >
+
+          <div class="offer-body">
+
+            <div class="offer-title">
+              ${escapeHTML(offer.title)}
+            </div>
+
+            ${
+              offer.description
+              ? `
+                <div class="offer-description">
+                  ${escapeHTML(
+                    offer.description
+                  )}
+                </div>
+              `
+              : ""
+            }
+
+            ${
+              offer.price !== null &&
+              offer.price !== undefined &&
+              offer.price !== ""
+              ? `
+                <div class="offer-price">
+                  ${formatPrice(
+                    offer.price
+                  )}
+                </div>
+              `
+              : ""
+            }
+
+          </div>
+        `;
+
+        container.appendChild(
+          card
+        );
+
+      });
+
+    }
+
+
+    /* =====================================================
        ITEMS
-    ========================================== */
+    ===================================================== */
 
     async function loadItems(
       categoryId,
-      branchId
+      branchId,
+      mode
     ) {
 
       const container =
-        document.getElementById("items");
+        mode === "foodMaster"
+          ? document.getElementById(
+              "foodMasterItems"
+            )
+          : document.getElementById(
+              "items"
+            );
+
 
       container.innerHTML =
-        `<div class="loading">جاري تحميل الأصناف...</div>`;
+        `
+          <div class="loading">
+            جاري تحميل الأصناف...
+          </div>
+        `;
 
-      const { data, error } =
+
+      const result =
         await supabaseClient
           .from("menu_items")
           .select("*")
           .eq("branch_id", branchId)
           .eq("category_id", categoryId)
           .eq("is_available", true)
-          .order("sort_order");
+          .order("sort_order", {
+            ascending: true
+          });
+
+
+      if (result.error) {
+
+        console.error(
+          "Menu items error:",
+          result.error
+        );
+
+        container.innerHTML =
+          `
+            <div class="error-box">
+              تعذر تحميل الأصناف حاليًا.
+            </div>
+          `;
+
+        return;
+
+      }
+
 
       renderItems(
-        (!error && data) ? data : []
+        result.data || [],
+        mode
       );
+
     }
 
-    function renderItems(items) {
+
+    function renderItems(
+      items,
+      mode
+    ) {
 
       const container =
-        document.getElementById("items");
+        mode === "foodMaster"
+          ? document.getElementById(
+              "foodMasterItems"
+            )
+          : document.getElementById(
+              "items"
+            );
+
 
       container.innerHTML = "";
+
 
       if (!items.length) {
 
         container.innerHTML =
-          `<div class="empty">لا توجد أصناف في هذا القسم</div>`;
+          `
+            <div class="empty">
+              لا توجد أصناف في هذا القسم حاليًا.
+            </div>
+          `;
 
         return;
+
       }
+
 
       items.forEach(item => {
 
         const image =
           item.image_url ||
-          placeholderImage(item.name);
+          placeholderImage(
+            item.name
+          );
+
 
         const card =
-          document.createElement("article");
+          document.createElement(
+            "article"
+          );
 
         card.className = "item";
 
+
         card.innerHTML = `
+
           <img
             class="item-image"
-            src="${image}"
-            alt="${item.name}"
+            src="${escapeHTML(image)}"
+            alt="${escapeHTML(item.name)}"
+            loading="lazy"
+            width="184"
+            height="184"
           >
 
           <div class="item-info">
 
             <div class="item-name">
-              ${item.name}
+              ${escapeHTML(item.name)}
             </div>
 
             ${
               item.description
-                ? `<div class="item-description">
-                    ${item.description}
-                   </div>`
-                : ""
+              ? `
+                <div class="item-description">
+                  ${escapeHTML(
+                    item.description
+                  )}
+                </div>
+              `
+              : ""
             }
 
             <div class="item-price">
-              ${formatPrice(item.price)}
+              ${formatPrice(
+                item.price
+              )}
             </div>
 
           </div>
+
         `;
 
-        container.appendChild(card);
+        container.appendChild(
+          card
+        );
+
       });
+
     }
 
-    /* ==========================================
-       DEMO MENU
-    ========================================== */
 
-    function renderDemoMenu() {
+    /* =====================================================
+       QR
+    ===================================================== */
 
-      const container =
-        document.getElementById("categories");
+    function getBaseUrl() {
 
-      container.innerHTML = "";
+      return (
+        window.location.origin +
+        window.location.pathname
+      );
 
-      demoCategories.forEach((category, index) => {
+    }
 
-        const button =
-          document.createElement("button");
 
-        button.className =
-          "category-button" +
-          (index === 0 ? " active" : "");
+    function generateBranchURL(
+      branchId
+    ) {
 
-        button.textContent =
-          category.name;
-
-        button.onclick = () => {
-
-          document
-            .querySelectorAll(".category-button")
-            .forEach(b =>
-              b.classList.remove("active")
-            );
-
-          button.classList.add("active");
-
-          const items =
-            demoItems.filter(
-              item =>
-                item.category_id === category.id
-            );
-
-          renderItems(items);
-        };
-
-        container.appendChild(button);
-      });
-
-      renderItems(
-        demoItems.filter(
-          item =>
-            item.category_id === demoCategories[0].id
+      return (
+        getBaseUrl() +
+        "#branch=" +
+        encodeURIComponent(
+          branchId
         )
       );
+
     }
 
-    /* ==========================================
-       BACK
-    ========================================== */
 
-    function showHome() {
+    function generateFoodMasterURL() {
 
-      document.getElementById("menuPage")
+      return (
+        getBaseUrl() +
+        "#foodmaster"
+      );
+
+    }
+
+
+    function showQR(
+      title,
+      url
+    ) {
+
+      const modal =
+        document.getElementById(
+          "qrModal"
+        );
+
+      const qr =
+        document.getElementById(
+          "qrcode"
+        );
+
+      document.getElementById(
+        "qrTitle"
+      ).textContent = title;
+
+
+      qr.innerHTML = "";
+
+      currentQRUrl = url;
+
+
+      if (
+        typeof QRCode ===
+        "undefined"
+      ) {
+
+        qr.innerHTML =
+          `
+            <div style="
+              color:#111;
+              font-size:11px;
+              padding:20px;
+            ">
+              تعذر تحميل QR حاليًا.
+            </div>
+          `;
+
+      } else {
+
+        new QRCode(
+          qr,
+          {
+            text: url,
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel:
+              QRCode.CorrectLevel.H
+          }
+        );
+
+      }
+
+
+      modal.classList.remove(
+        "hidden"
+      );
+
+    }
+
+
+    function generateCurrentBranchQR() {
+
+      if (!currentBranch) {
+        return;
+      }
+
+      showQR(
+        currentBranch.name ||
+        "منيو الفرع",
+        generateBranchURL(
+          currentBranch.id
+        )
+      );
+
+    }
+
+
+    function generateFoodMasterQR() {
+
+      showQR(
+        "The Food Master – مرج الحمام",
+        generateFoodMasterURL()
+      );
+
+    }
+
+
+    function closeQR() {
+
+      document
+        .getElementById("qrModal")
         .classList.add("hidden");
 
-      document.getElementById("homePage")
-        .classList.remove("hidden");
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
     }
 
-    /* ==========================================
+
+    function downloadQR() {
+
+      const qr =
+        document.getElementById(
+          "qrcode"
+        );
+
+      const canvas =
+        qr.querySelector("canvas");
+
+      const image =
+        qr.querySelector("img");
+
+
+      let source = null;
+
+
+      if (canvas) {
+
+        source =
+          canvas.toDataURL(
+            "image/png"
+          );
+
+      } else if (image) {
+
+        source =
+          image.src;
+
+      }
+
+
+      if (!source) {
+        return;
+      }
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.href = source;
+
+      link.download =
+        "menu-qr-code.png";
+
+      document.body.appendChild(
+        link
+      );
+
+      link.click();
+
+      link.remove();
+
+    }
+
+
+    /* =====================================================
+       DIRECT QR ROUTING
+    ===================================================== */
+
+    async function openFromURL() {
+
+      const hash =
+        window.location.hash;
+
+
+      if (
+        hash === "#foodmaster"
+      ) {
+
+        await openFoodMaster(
+          false
+        );
+
+        return;
+
+      }
+
+
+      if (
+        hash.startsWith(
+          "#branch="
+        )
+      ) {
+
+        const branchId =
+          decodeURIComponent(
+            hash.substring(
+              "#branch=".length
+            )
+          );
+
+
+        const branch =
+          allBranches.find(
+            item =>
+              String(item.id) ===
+              String(branchId)
+          );
+
+
+        if (branch) {
+
+          await openBranchMenu(
+            branch.id,
+            false
+          );
+
+          return;
+
+        }
+
+      }
+
+
+      showHome();
+
+    }
+
+
+    /* =====================================================
+       CLOSE QR WHEN CLICK OUTSIDE
+    ===================================================== */
+
+    document
+      .getElementById("qrModal")
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+            closeQR();
+          }
+
+        }
+      );
+
+
+    /* =====================================================
        START
-    ========================================== */
+    ===================================================== */
 
     async function startApp() {
 
-      await loadRestaurant();
+      /*
+        تحميل البيانات معًا.
+        لا ننتظر عنصرًا حتى ينتهي
+        قبل بدء العنصر الآخر.
+      */
 
-      await loadIntro();
+      await Promise.all([
+        loadRestaurantSettings(),
+        loadBranchesData()
+      ]);
 
-      await loadBranches();
+
+      /*
+        إخفاء شاشة البداية بسرعة جدًا.
+      */
+
+      setTimeout(
+        () => {
+
+          const intro =
+            document.getElementById(
+              "intro"
+            );
+
+          if (!intro) {
+            return;
+          }
+
+          intro.style.opacity = "0";
+
+          setTimeout(
+            () => {
+
+              intro.remove();
+
+            },
+            180
+          );
+
+        },
+        700
+      );
+
+
+      /*
+        إذا جاء الزبون من QR
+        نفتح الفرع مباشرة.
+      */
+
+      await openFromURL();
+
     }
+
 
     startApp();
 
